@@ -1,0 +1,79 @@
+/*
+
+978 Grid System CSS Framework
+http://978.gs
+
+Copyright (c) 2011 Brothers Roloff
+http://www.brothersroloff.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*/
+
+div.pageA4 {
+	width: 210mm;
+	margin: 0 auto 0px;
+	border: 1px dotted #c0c0c0;
+	height: 297mm;
+	position:  relative;
+}
+
+div.layoutGrid {
+	width: 177mm;
+	padding-top: 22.5mm;
+	padding-left: 22.5mm;
+	padding-right: 10.5mm;
+}
+
+div.layoutGridBottom {
+	width: 177mm;
+	padding-left: 22.5mm;
+	padding-right: 10.5mm;
+	margin-top: 4.3mm;
+	padding-bottom: 12.3mm;
+	height: 12.6mm;
+	position: absolute;
+	bottom: 0;
+}
+
+div.row { height: 1%; }
+div.row-end { clear: both; font: 1px/1px sans-serif; height: 0; overflow: hidden; }
+
+div.col1, div.col2, div.col3, div.col4 { float: left;
+	margin-left: 4mm;
+}
+div.col1:first-child, div.col2:first-child, div.col3:first-child, div.col4:first-child { margin-left: 0px; }
+div.col1 {
+	width: 41.25mm;
+}
+div.col2 {
+	width: 86.5mm;
+}
+div.col3 {
+	width: 131.75mm;
+}
+div.col4 { width: 177mm; }
+
+.line {
+	border-top: 1px solid #000;
+}
+
+.right {
+	text-align: right;
+}

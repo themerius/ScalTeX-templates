@@ -1,0 +1,18 @@
+# General temp files
+.DS_Store
+
+# IDE and editors
+*~
+*swp
+.idea
+nbproject
+eclipse
+.amateras
+.settings
+.classpath
+.project
+*.iml
+*.ipr
+*.iws
+.cache
+
