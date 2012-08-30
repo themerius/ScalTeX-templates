@@ -4,13 +4,14 @@
 <meta charset="utf-8" />
 <title>960 Grid System &mdash; Demo</title>
 <script src="js/mustache.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
 </head>
 <body>
 	<h1>Testing Mustache</h1>
 	<div id="must"></div>
 	<script id="template" type="text/template">
 	<h2>{{title}}</h2>
-	spends <strong>{{calc}}</strong>!
+	spends <strong>{{{calc}}}</strong>! (mit zwei statt drei Klammern ist es: {{calc}}.)
 	<h3>This ist quite cool {{title}}!</h3>
 	</script>
 
@@ -18,7 +19,7 @@
 	var view = {
 	  title: "Joe",
 	  calc: function () {
-	    return 2 + 4;
+	    return "Das ist <em>ein</em> test";
 	  }
 	};
 
