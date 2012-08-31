@@ -27,7 +27,7 @@
       <p>{{institutName}}</p>
     </div>
     <div class="col1 right">
-     {{pageNr}}
+     <p>{{pageNr}}</p>
     </div>
     <div class="row-end">&nbsp;</div>
 </div>
@@ -37,6 +37,9 @@
 <div class="row">
 	<div class="col3">
 		<p>{{{text}}}</p>
+		{{#newline}}
+		</br>
+		{{/newline}}
 	</div>
 	<div class="row-end">&nbsp;</div>
 </div>
@@ -44,7 +47,7 @@
 
 <script id="heading" type="text/template">
 <div class="row">
-	<div class="col4"><h1>{{number}} {{heading}}</h1></div>
+	<div class="col4"><{{h}}>{{number}}</br>{{heading}}</{{h}}></br></br></div>
 	<div class="row-end">&nbsp;</div>
 </div>
 </script>
@@ -67,26 +70,49 @@
 -->
 
 <script>
-var demo = {
-    text: "Lorem <em>ipsum</em> dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
-    heading: "Ueberschrift",
-    number: 1
+var section_1 = {
+	heading: "First Heading",
+	number: 1,
+	h: "h1"
+};
+
+var par_1 = {
+	text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+	newline: [true, true]
+};
+
+var subsection_1_1 = {
+	heading: "Subheading",
+	number: 1.1,
+	h: "h2"
+};
+
+var par_2 = {
+	text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
 };
 
 var figData = {
     src: "https://raw.github.com/themerius/ScalTeX/play/public/images/plot.png",
     number: 1,
     description: "Blindtext Bildunterschrift Marginaltext in Marginalspalte </br> Als es die ersten Hügel des Kursivgebirges"
-}
+};
 
 var page = document.getElementById("page").text;
 var text = document.getElementById("text_3column").text;
 var heading = document.getElementById("heading").text;
 var fig = document.getElementById("figure_2column_left").text;
-var fig_out = Mustache.render(fig, figData);
-var heading_out = Mustache.render(heading, demo);
-var text_out = Mustache.render(text, demo);
-var page_out = Mustache.render(page, {content: heading_out + text_out + fig_out});
-document.getElementById("main").innerHTML = page_out;
+
+var render = [
+	Mustache.render(heading, section_1),
+	Mustache.render(text, par_1),
+	Mustache.render(heading, subsection_1_1),
+	Mustache.render(text, par_2),
+	Mustache.render(fig, figData)
+];
+
+var assembledPage = Mustache.render(page, {content: render.join("")});
+
+document.getElementById("main").innerHTML = assembledPage;
 </script>
+
 </body>
