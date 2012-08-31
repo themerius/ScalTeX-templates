@@ -7,6 +7,10 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+p {
+	line-height: 12pt;
+}
+
 img.scaling {
 	max-width: 100%;
 }
@@ -37,16 +41,19 @@ hr {
 h1 {
   font-size: 14pt;
   font-weight: bold;
+  line-height: 17.5pt;
 }
 
 h2 {
   font-size: 14pt;
   font-weight: lighter;
+  line-height: 17.5pt;
 }
 
 h3, h4, h5, h6 {
   font-size: 10pt;
   font-weight: bold;
+  line-height: 12pt;
 }
 
 /* `Spacing
