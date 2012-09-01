@@ -5,6 +5,7 @@ body {
 	text-align: left;
 	font: lighter 10pt/12pt "Frutiger LT Com", sans-serif;
 	text-rendering: optimizeLegibility;
+	background-color: #eaeaea;
 }
 
 p {

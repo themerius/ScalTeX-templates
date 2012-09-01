@@ -21,7 +21,7 @@
 </script>
 
 <script id="pagina" type="text/template">
-<div class="layoutGridBottom pagina">
+<div id="obj_{{objId}}" class="layoutGridBottom pagina">
   <div class="row line">
     <div class="col3">
       <p>{{institutName}}</p>
@@ -34,7 +34,7 @@
 </script>
 
 <script id="text_3column" type="text/template">
-<div class="row">
+<div id="obj_{{objId}}" class="row">
 	<div class="col3">
 		<p>{{{text}}}</p>
 		{{#newline}}
@@ -46,14 +46,14 @@
 </script>
 
 <script id="heading" type="text/template">
-<div class="row">
+<div id="obj_{{objId}}" class="row">
 	<div class="col4"><{{h}}>{{number}}</br>{{heading}}</{{h}}></br></br></div>
 	<div class="row-end">&nbsp;</div>
 </div>
 </script>
 
 <script id="figure_2column_left" type="text/template">
-<div class="row topSpace bottomSpace">
+<div id="obj_{{objId}}" class="row topSpace bottomSpace">
 	<div class="col2">
 		<img class="scaling" src="{{src}}" alt="{{description}}" />
 	</div>
@@ -70,31 +70,41 @@
 -->
 
 <script>
-var section_1 = {
+var section_1 = {  // TODO: define kind of object or determine! 
 	heading: "First Heading",
 	number: 1,
-	h: "h1"
+	h: "h1",
+	objId: 0
 };
 
 var par_1 = {
 	text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-	newline: [true, true]
+	newline: [true, true],
+	objId: 1
 };
 
 var subsection_1_1 = {
 	heading: "Subheading",
 	number: 1.1,
-	h: "h2"
+	h: "h2",
+	objId: 2
 };
 
 var par_2 = {
-	text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+	text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+	objId: 3
 };
 
 var figData = {
     src: "https://raw.github.com/themerius/ScalTeX/play/public/images/plot.png",
     number: 1,
-    description: "Blindtext Bildunterschrift Marginaltext in Marginalspalte </br> Als es die ersten Hügel des Kursivgebirges"
+    description: "Blindtext Bildunterschrift Marginaltext in Marginalspalte </br> Als es die ersten Hügel des Kursivgebirges",
+	objId: 4
+};
+
+var par_3 = {
+	text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+	objId: 5
 };
 
 var page = document.getElementById("page").text;
@@ -107,12 +117,34 @@ var render = [
 	Mustache.render(text, par_1),
 	Mustache.render(heading, subsection_1_1),
 	Mustache.render(text, par_2),
-	Mustache.render(fig, figData)
+	Mustache.render(fig, figData),
+	Mustache.render(text, par_3)
 ];
 
 var assembledPage = Mustache.render(page, {content: render.join("")});
 
 document.getElementById("main").innerHTML = assembledPage;
+
+window.onload = function() {
+	var heightlist = [];
+	for(index in render){
+		heightlist.push(document.getElementById("obj_"+index).offsetHeight);
+	}
+	console.log(heightlist);
+};
+
+// Cutter
+// ------
+console.log(document.getElementsByClassName("layoutGrid")[0].offsetHeight);
+var a4WidthInPx = document.getElementsByClassName("pageA4")[0].offsetWidth;
+console.log("210mm is on this computer " + a4WidthInPx + " pixel.");
+var mm_per_px = 210. / a4WidthInPx;
+console.log(mm_per_px + "mm per pixel.");
+var a4HightInPx = document.getElementsByClassName("pageA4")[0].offsetHeight;
+console.log(mm_per_px * a4HightInPx);
+console.log(document.getElementsByClassName("layoutGrid")[0].offsetHeight * mm_per_px);
+var contentMaxHeightPerPage = 241.3 * (1. / mm_per_px);
+console.log("max heigt for content per page in px: " + contentMaxHeightPerPage)
 </script>
 
 </body>
