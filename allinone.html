@@ -35,32 +35,32 @@
 
 <script id="text_3column" type="text/template">
 <div id="obj_{{objId}}" class="row">
-	<div class="col3">
-		<p>{{{text}}}</p>
-		{{#newline}}
-		</br>
-		{{/newline}}
-	</div>
-	<div class="row-end">&nbsp;</div>
+  <div class="col3">
+    <p>{{{text}}}</p>
+    {{#newline}}
+    </br>
+    {{/newline}}
+  </div>
+  <div class="row-end">&nbsp;</div>
 </div>
 </script>
 
 <script id="heading" type="text/template">
 <div id="obj_{{objId}}" class="row">
-	<div class="col4"><{{h}}>{{number}}</br>{{heading}}</{{h}}></br></br></div>
-	<div class="row-end">&nbsp;</div>
+  <div class="col4"><{{h}}>{{number}}</br>{{heading}}</{{h}}></br></br></div>
+  <div class="row-end">&nbsp;</div>
 </div>
 </script>
 
 <script id="figure_2column_left" type="text/template">
 <div id="obj_{{objId}}" class="row topSpace bottomSpace">
-	<div class="col2">
-		<img class="scaling" src="{{src}}" alt="{{description}}" />
-	</div>
-	<div class="col1">  <!-- style="margin-top: parentHight - self.hight px" -->
-		<strong>Abbildung {{number}}: {{{description}}}</strong>
-	</div>
-	<div class="row-end">&nbsp;</div>
+  <div class="col2">
+    <img class="scaling" src="{{src}}" alt="{{description}}" />
+  </div>
+  <div class="col1">  <!-- style="margin-top: parentHight - self.hight px" -->
+    <strong>Abbildung {{number}}: {{{description}}}</strong>
+  </div>
+  <div class="row-end">&nbsp;</div>
 </div>
 </script>
 
@@ -71,40 +71,40 @@
 
 <script>
 var section_1 = {  // TODO: define kind of object or determine! 
-	heading: "First Heading",
-	number: 1,
-	h: "h1",
-	objId: 0
+  heading: "First Heading",
+  number: 1,
+  h: "h1",
+  objId: 0
 };
 
 var par_1 = {
-	text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-	newline: [true, true],
-	objId: 1
+  text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  newline: [true, true],
+  objId: 1
 };
 
 var subsection_1_1 = {
-	heading: "Subheading",
-	number: 1.1,
-	h: "h2",
-	objId: 2
+  heading: "Subheading",
+  number: 1.1,
+  h: "h2",
+  objId: 2
 };
 
 var par_2 = {
-	text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-	objId: 3
+  text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  objId: 3
 };
 
 var figData = {
     src: "https://raw.github.com/themerius/ScalTeX/play/public/images/plot.png",
     number: 1,
     description: "Blindtext Bildunterschrift Marginaltext in Marginalspalte </br> Als es die ersten Hügel des Kursivgebirges",
-	objId: 4
+  objId: 4
 };
 
 var par_3 = {
-	text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-	objId: 5
+  text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  objId: 5
 };
 
 var page = document.getElementById("page").text;
@@ -113,12 +113,12 @@ var heading = document.getElementById("heading").text;
 var fig = document.getElementById("figure_2column_left").text;
 
 var render = [
-	Mustache.render(heading, section_1),
-	Mustache.render(text, par_1),
-	Mustache.render(heading, subsection_1_1),
-	Mustache.render(text, par_2),
-	Mustache.render(fig, figData),
-	Mustache.render(text, par_3)
+  Mustache.render(heading, section_1),
+  Mustache.render(text, par_1),
+  Mustache.render(heading, subsection_1_1),
+  Mustache.render(text, par_2),
+  Mustache.render(fig, figData),
+  Mustache.render(text, par_3)
 ];
 
 var assembledPage = Mustache.render(page, {content: render.join("")});
@@ -129,38 +129,38 @@ document.getElementById("main").innerHTML = assembledPage;
 // PageMaker
 // ---------
 window.onload = function() {
-	var heightlist = [];
-	for(index in render){
-		heightlist.push(document.getElementById("obj_"+index).offsetHeight);
-	}
-	console.log("Heights of every object: " + heightlist);
+  var heightlist = [];
+  for(index in render){
+    heightlist.push(document.getElementById("obj_"+index).offsetHeight);
+  }
+  console.log("Heights of every object: " + heightlist);
 
-	console.log(document.getElementsByClassName("layoutGrid")[0].offsetHeight);
-	var a4WidthInPx = document.getElementsByClassName("pageA4")[0].offsetWidth;
-	console.log("210mm is on this computer " + a4WidthInPx + " pixel.");
-	var mm_per_px = 210. / a4WidthInPx;
-	console.log(mm_per_px + "mm per pixel.");
-	var a4HightInPx = document.getElementsByClassName("pageA4")[0].offsetHeight;
-	console.log(mm_per_px * a4HightInPx);
-	console.log(document.getElementsByClassName("layoutGrid")[0].offsetHeight * mm_per_px);
-	var contentMaxHeightPerPage = 241.3 * (1. / mm_per_px);
-	console.log("max heigt for content per page in px: " + contentMaxHeightPerPage);
+  console.log(document.getElementsByClassName("layoutGrid")[0].offsetHeight);
+  var a4WidthInPx = document.getElementsByClassName("pageA4")[0].offsetWidth;
+  console.log("210mm is on this computer " + a4WidthInPx + " pixel.");
+  var mm_per_px = 210. / a4WidthInPx;
+  console.log(mm_per_px + "mm per pixel.");
+  var a4HightInPx = document.getElementsByClassName("pageA4")[0].offsetHeight;
+  console.log(mm_per_px * a4HightInPx);
+  console.log(document.getElementsByClassName("layoutGrid")[0].offsetHeight * mm_per_px);
+  var contentMaxHeightPerPage = 241.3 * (1. / mm_per_px);
+  console.log("max heigt for content per page in px: " + contentMaxHeightPerPage);
 
-	document.getElementById("main").innerHTML = "";
-	var cumm = 0;
-	var objs = [];
-	for (idx in render){
-		cumm += heightlist[idx];
-		if (cumm <= contentMaxHeightPerPage) {
-			objs.push(render[idx]);
-		} else {
-			document.getElementById("main").innerHTML += Mustache.render(page, {content: objs.join("")});
-			cumm = 0;
-			objs = [];
-			objs.push(render[idx]);
-		}
-	};
-	document.getElementById("main").innerHTML += Mustache.render(page, {content: objs.join("")});
+  document.getElementById("main").innerHTML = "";
+  var cumm = 0;
+  var objs = [];
+  for (idx in render){
+    cumm += heightlist[idx];
+    if (cumm <= contentMaxHeightPerPage) {
+      objs.push(render[idx]);
+    } else {
+      document.getElementById("main").innerHTML += Mustache.render(page, {content: objs.join("")});
+      cumm = 0;
+      objs = [];
+      objs.push(render[idx]);
+    }
+  };
+  document.getElementById("main").innerHTML += Mustache.render(page, {content: objs.join("")});
 };
 </script>
 
