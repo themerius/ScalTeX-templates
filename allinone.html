@@ -119,18 +119,16 @@ var json_from_generator = [
 ];
 
 var config = new scaltex.Configuration(contentHeight=241.3);
-config.addTemplateObject("page", "page");
-config.addTemplateObject("text", "text_3column");
-config.addTemplateObject("heading", "heading");
-config.addTemplateObject("figure", "figure_2column_left");
+config.templateObjects.page = new scaltex.Object("page");
+config.templateObjects.text = new scaltex.Object("text_3column");
+config.templateObjects.heading = new scaltex.Object("heading");
+config.templateObjects.figure = new scaltex.Object("figure_2column_left");
+config.pageObjects.ContinuousPages = new scaltex.ContinuousPages(
+    new scaltex.Object("page"), "content", "main", config);
 
 render = new scaltex.DocumentBuilder(json_from_generator, config).render();
 
-var assembledPage = config.templateObjects.page.render(
-    {content: render.join(""), objId: -1});
-
-document.getElementById("main").innerHTML = assembledPage;
-
+config.pageObjects.ContinuousPages.render(render);
 
 // PageMaker
 // ---------

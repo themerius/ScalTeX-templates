@@ -11,6 +11,7 @@ scaltex.__version__ = "0.1dev";
 scaltex.Configuration = function (contentHeight) {
   this.contentHeight = contentHeight;
   this.templateObjects = {};
+  this.pageObjects = {};
 
   var tmpElem = document.createElement("div");
   tmpElem.id = "tmpElem";
@@ -29,10 +30,6 @@ scaltex.Configuration.prototype.pixelPerMillimeter = function () {
 
 scaltex.Configuration.prototype.maxHeightPerPage = function() {
   return this.contentHeight * this.pixelPerMillimeter();
-}
-
-scaltex.Configuration.prototype.addTemplateObject = function(name, templateId) {
-  this.templateObjects[name] = new scaltex.Object(templateId);
 }
 
 /**
@@ -84,13 +81,20 @@ scaltex.Object.prototype.height = function (objId) {
 }
 
 /**
- * class: ContinousPages
+ * class: ContinuousPages
  */
-scaltex.ContinuousPages = function (pageObject, objects, elementId) {
-  this.pageObject = pageObject;
-  this.objects = objects;
+scaltex.ContinuousPages = function (pageObject, entryPoint, hookInId, config) {
+  this.pageTemplateObject = pageObject;
+  this.templateEntryPoint = entryPoint;
+  this.hookInId = hookInId;
+  this.config = config;
 }
 
-scaltex.ContinuousPages.prototype.generate = function () {
-  return 0;
+scaltex.ContinuousPages.prototype.render = function (objects) {
+  var json = {objId: -1};
+  json[this.templateEntryPoint] = objects.join("")
+
+  var page = this.pageTemplateObject.render(json);
+
+  document.getElementById("main").innerHTML = page;
 }
