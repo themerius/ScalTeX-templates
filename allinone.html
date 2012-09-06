@@ -108,20 +108,23 @@ var par_3 = {
   objId: 5
 };
 
+var json_from_generator = [
+  {type: "NewPage", context: "ContinousPages"},
+  {type: "heading", context: section_1},
+  {type: "text", context: par_1},
+  {type: "heading", context: subsection_1_1},
+  {type: "text", context: par_2},
+  {type: "figure", context: figData},
+  {type: "text", context: par_3}
+];
+
 var config = new scaltex.Configuration(contentHeight=241.3);
 config.addTemplateObject("page", "page");
 config.addTemplateObject("text", "text_3column");
 config.addTemplateObject("heading", "heading");
 config.addTemplateObject("figure", "figure_2column_left");
 
-var render = [
-  config.templateObjects.heading.render(section_1),
-  config.templateObjects.text.render(par_1),
-  config.templateObjects.heading.render(subsection_1_1),
-  config.templateObjects.text.render(par_2),
-  config.templateObjects.figure.render(figData),
-  config.templateObjects.text.render(par_3)
-];
+render = new scaltex.DocumentBuilder(json_from_generator, config).render();
 
 var assembledPage = config.templateObjects.page.render(
     {content: render.join(""), objId: -1});

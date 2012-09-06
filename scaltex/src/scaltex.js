@@ -36,6 +36,36 @@ scaltex.Configuration.prototype.addTemplateObject = function(name, templateId) {
 }
 
 /**
+ * class: DocumentBuilder
+ */
+scaltex.DocumentBuilder = function (jsonGenerator, config) {
+  var list = [];
+  for (var item in jsonGenerator) {
+    if (jsonGenerator[item].type == "NewPage")
+      list.push([ jsonGenerator[item].context, [] ]);
+    else {
+      var objsForPage = list.slice(-1)[0][1];
+      var obj = jsonGenerator[item];
+      objsForPage.push(
+        config.templateObjects[obj.type].render(obj.context));
+    }
+  }
+  this.objlist = list;
+}
+
+scaltex.DocumentBuilder.prototype.render = function () {
+  for (var idx in this.objlist) {
+    //var pageGenerator = this.config.templateObjects[this.objlist[idx][0]];
+    var objs = this.objlist[idx][1];
+    //pageGenerator.render(objs.join(""));
+    return objs;
+  }
+}
+
+scaltex.DocumentBuilder.prototype.rearrange = function () {
+}
+
+/**
  * class: Object
  */
 scaltex.Object = function (templateId) {
