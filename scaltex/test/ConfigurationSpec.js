@@ -18,4 +18,12 @@ describe("Configuration", function() {
     expect(cfg.maxHeightPerPage()).toEqual(912.0000000000001);
   });
 
+  it("should memorize the configured template objects", function() {
+    cfg.addTemplateObject("heading", "");
+    expect(cfg.templateObjects.heading).toEqual(jasmine.any(scaltex.Object));
+    cfg.addTemplateObject("figure", "");
+    expect(cfg.templateObjects.heading).toEqual(jasmine.any(scaltex.Object));
+    expect(cfg.templateObjects.figure).toEqual(jasmine.any(scaltex.Object));
+  });
+
 });

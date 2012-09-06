@@ -108,21 +108,23 @@ var par_3 = {
   objId: 5
 };
 
-var page = document.getElementById("page").text;
-var text = document.getElementById("text_3column").text;
-var heading = document.getElementById("heading").text;
-var fig = document.getElementById("figure_2column_left").text;
+var config = new scaltex.Configuration(contentHeight=241.3);
+config.addTemplateObject("page", "page");
+config.addTemplateObject("text", "text_3column");
+config.addTemplateObject("heading", "heading");
+config.addTemplateObject("figure", "figure_2column_left");
 
 var render = [
-  Mustache.render(heading, section_1),
-  Mustache.render(text, par_1),
-  Mustache.render(heading, subsection_1_1),
-  Mustache.render(text, par_2),
-  Mustache.render(fig, figData),
-  Mustache.render(text, par_3)
+  config.templateObjects.heading.render(section_1),
+  config.templateObjects.text.render(par_1),
+  config.templateObjects.heading.render(subsection_1_1),
+  config.templateObjects.text.render(par_2),
+  config.templateObjects.figure.render(figData),
+  config.templateObjects.text.render(par_3)
 ];
 
-var assembledPage = Mustache.render(page, {content: render.join("")});
+var assembledPage = config.templateObjects.page.render(
+    {content: render.join(""), objId: -1});
 
 document.getElementById("main").innerHTML = assembledPage;
 
@@ -155,13 +157,13 @@ window.onload = function() {
     if (cumm <= contentMaxHeightPerPage) {
       objs.push(render[idx]);
     } else {
-      document.getElementById("main").innerHTML += Mustache.render(page, {content: objs.join("")});
+      document.getElementById("main").innerHTML += config.templateObjects.page.render({content: objs.join(""), objId: -1});
       cumm = 0;
       objs = [];
       objs.push(render[idx]);
     }
   };
-  document.getElementById("main").innerHTML += Mustache.render(page, {content: objs.join("")});
+  document.getElementById("main").innerHTML += config.templateObjects.page.render({content: objs.join(""), objId: -1});
 };
 </script>
 

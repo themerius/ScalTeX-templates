@@ -6,10 +6,11 @@ var scaltex = {};
 scaltex.__version__ = "0.1dev";
 
 /**
- * class: PageMaker
+ * class: Configuration
  */
 scaltex.Configuration = function (contentHeight) {
   this.contentHeight = contentHeight;
+  this.templateObjects = {};
 
   var tmpElem = document.createElement("div");
   tmpElem.id = "tmpElem";
@@ -30,19 +31,22 @@ scaltex.Configuration.prototype.maxHeightPerPage = function() {
   return this.contentHeight * this.pixelPerMillimeter();
 }
 
+scaltex.Configuration.prototype.addTemplateObject = function(name, templateId) {
+  this.templateObjects[name] = new scaltex.Object(templateId);
+}
+
 /**
  * class: Object
  */
 scaltex.Object = function (templateId) {
-  this.template = document.getElementById(templateId).text;
+  template = document.getElementById(templateId);
+  this.template = (template == null) ? "" : template.text;
 }
 
 scaltex.Object.prototype.render = function (json) {
   if (json.objId == undefined || null)
     throw new Error("objId property is needed");
-  var ret = Mustache.render(this.template, json);
-  ret.height = scaltex.Object.prototype.height;
-  return ret
+  return Mustache.render(this.template, json);
 }
 
 scaltex.Object.prototype.height = function (objId) {
