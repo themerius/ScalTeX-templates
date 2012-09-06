@@ -129,42 +129,8 @@ config.pageObjects.ContinuousPages = new scaltex.ContinuousPages(
 render = new scaltex.DocumentBuilder(json_from_generator, config).render();
 
 config.pageObjects.ContinuousPages.render(render);
-
-// PageMaker
-// ---------
-window.onload = function() {
-  var heightlist = [];
-  for(index in render){
-    heightlist.push(document.getElementById("obj_"+index).offsetHeight);
-  }
-  console.log("Heights of every object: " + heightlist);
-
-  console.log(document.getElementsByClassName("layoutGrid")[0].offsetHeight);
-  var a4WidthInPx = document.getElementsByClassName("pageA4")[0].offsetWidth;
-  console.log("210mm is on this computer " + a4WidthInPx + " pixel.");
-  var mm_per_px = 210. / a4WidthInPx;
-  console.log(mm_per_px + "mm per pixel.");
-  var a4HightInPx = document.getElementsByClassName("pageA4")[0].offsetHeight;
-  console.log(mm_per_px * a4HightInPx);
-  console.log(document.getElementsByClassName("layoutGrid")[0].offsetHeight * mm_per_px);
-  var contentMaxHeightPerPage = 241.3 * (1. / mm_per_px);
-  console.log("max heigt for content per page in px: " + contentMaxHeightPerPage);
-
-  document.getElementById("main").innerHTML = "";
-  var cumm = 0;
-  var objs = [];
-  for (idx in render){
-    cumm += heightlist[idx];
-    if (cumm <= contentMaxHeightPerPage) {
-      objs.push(render[idx]);
-    } else {
-      document.getElementById("main").innerHTML += config.templateObjects.page.render({content: objs.join(""), objId: -1});
-      cumm = 0;
-      objs = [];
-      objs.push(render[idx]);
-    }
-  };
-  document.getElementById("main").innerHTML += config.templateObjects.page.render({content: objs.join(""), objId: -1});
+window.onload = function(){
+  config.pageObjects.ContinuousPages.rearrange(render);
 };
 </script>
 

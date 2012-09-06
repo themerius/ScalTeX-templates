@@ -73,15 +73,19 @@ scaltex.Object = function (templateId) {
 scaltex.Object.prototype.render = function (json) {
   if (json.objId == undefined || null)
     throw new Error("objId property is needed");
-  return Mustache.render(this.template, json);
-}
 
-scaltex.Object.prototype.height = function (objId) {
-  return document.getElementById("obj_" + objId).offsetHeight;
+  var str = new String(Mustache.render(this.template, json));
+
+  str.height = function () {
+    return document.getElementById("obj_" + json.objId).offsetHeight;
+  }
+
+  return str;
 }
 
 /**
  * class: ContinuousPages
+ * must be executed within window.onload.
  */
 scaltex.ContinuousPages = function (pageObject, entryPoint, hookInId, config) {
   this.pageTemplateObject = pageObject;
@@ -92,9 +96,37 @@ scaltex.ContinuousPages = function (pageObject, entryPoint, hookInId, config) {
 
 scaltex.ContinuousPages.prototype.render = function (objects) {
   var json = {objId: -1};
-  json[this.templateEntryPoint] = objects.join("")
+  json[this.templateEntryPoint] = objects.join("");
 
   var page = this.pageTemplateObject.render(json);
 
-  document.getElementById("main").innerHTML = page;
+  var view = document.getElementById(this.hookInId);
+  view.innerHTML = page;
+}
+
+scaltex.ContinuousPages.prototype.rearrange = function (objects) {
+  var json = {objId: -1};
+  json[this.templateEntryPoint] = objects.join("");
+
+  var view = document.getElementById(this.hookInId);
+  var heightlist = objects.map( function(x){return x.height()} );
+
+  view.innerHTML = "";
+  var cumm = 0;
+  var objs = [];
+  for (idx in objects) {
+    cumm += heightlist[idx];
+    console.log(cumm, this.config.maxHeightPerPage());
+    if (cumm <= this.config.maxHeightPerPage()) {
+      objs.push(objects[idx]);
+    } else {
+      json[this.templateEntryPoint] = objs.join("");
+      view.innerHTML += this.pageTemplateObject.render(json);
+      cumm = 0;
+      objs = [];
+      objs.push(objects[idx]);
+    }
+  };
+  json[this.templateEntryPoint] = objs.join("");
+  view.innerHTML += this.pageTemplateObject.render(json);
 }

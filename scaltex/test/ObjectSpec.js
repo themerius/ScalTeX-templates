@@ -27,11 +27,12 @@ describe("Object", function() {
   });
 
   it("should know it's height in px after `render`", function() {
+    var rendered = o.render({objId: 0, variable: "myvar."});
     var elem = document.createElement("div");
-    elem.innerHTML = o.render({objId: 0, variable: "myvar."});
+    elem.innerHTML = rendered;
     document.body.appendChild(elem);
 
-    expect(o.height(0)).toEqual(200);
+    expect(rendered.height()).toEqual(200);
 
     document.body.removeChild(elem);
   });
