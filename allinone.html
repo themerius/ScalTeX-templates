@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="css/grid.css" />
 <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
 <script src="scaltex/src/scaltex.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
 
@@ -110,9 +111,34 @@ var par_3 = {
 
 var section_2 = {
   heading: "Second Heading",
-  number: 1,
+  number: 2,
   h: "h1",
   objId: 6
+};
+
+var subsection_2_1 = {
+  heading: "Subheading",
+  number: 2.1,
+  h: "h2",
+  objId: 7
+};
+
+var par_4 = {
+  text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  newline: true,
+  objId: 8
+};
+
+var par_5 = {
+  text: "Look at the inline math like $X=\\mathcal F(x):\\mathbb R\\to\\mathbb C$. Or full math: $$x(t)=\\frac1{\\sqrt{2\\pi}}\\int_{-2\\pi F}^{2\\pi F} X(\\omega)e^{\\mathrm{i}\\omega\\,t}\, d\\omega$$",
+  objId: 9,
+  newline: true
+};
+
+
+var par_6 = {
+  text: "Lorem <em>ipsum dolor</em> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  objId: 10
 };
 
 
@@ -125,7 +151,11 @@ var json_from_generator = [
   {type: "figure", context: figData},
   {type: "text", context: par_3},
   {type: "NewPage", context: "ContinuousPages"},
-  {type: "heading", context: section_2}
+  {type: "heading", context: section_2},
+  {type: "heading", context: subsection_2_1},
+  {type: "text", context: par_4},
+  {type: "text", context: par_5},
+  {type: "text", context: par_6}
 ];
 
 var config = new scaltex.Configuration(contentHeight=241.3);
@@ -136,10 +166,19 @@ config.templateObjects.figure = new scaltex.Object("figure_2column_left");
 config.pageObjects.ContinuousPages = new scaltex.ContinuousPages(
     new scaltex.Object("page"), "content", config);
 
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [ ['$','$'], ["\\(","\\)"] ]}
+});
+
 var builder = new scaltex.DocumentBuilder(json_from_generator, config, "main");
 builder.render();
+//MathJax.Hub.Typeset();
+
 window.onload = function () {
   builder.splitIntoPages();
+  //window.setTimeout("MathJax.Hub.Typeset()", 2000);
+  //MathJax.Hub.Typeset();
+  //var executed = false;
 };
 </script>
 

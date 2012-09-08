@@ -63,6 +63,7 @@ scaltex.DocumentBuilder.prototype.render = function (method) {
 
     pageGenerator.render(objs, elem.id);
   }
+  MathJax.Hub.Typeset();
 }
 
 scaltex.DocumentBuilder.prototype.splitIntoPages = function () {
@@ -72,7 +73,7 @@ scaltex.DocumentBuilder.prototype.splitIntoPages = function () {
 
     pageGenerator.splitIntoPages(objs, "PageClass_"+idx);
   }
-
+  MathJax.Hub.Typeset();
 }
 
 /**
