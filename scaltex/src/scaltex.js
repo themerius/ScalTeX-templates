@@ -48,18 +48,21 @@ scaltex.DocumentBuilder = function (jsonGenerator, config) {
     }
   }
   this.objlist = list;
+  this.config = config;
 }
 
-scaltex.DocumentBuilder.prototype.render = function () {
+scaltex.DocumentBuilder.prototype.render = function (method) {
+  if (method == null)
+    method = "render";
   for (var idx in this.objlist) {
-    //var pageGenerator = this.config.templateObjects[this.objlist[idx][0]];
+    var pageGenerator = this.config.pageObjects[this.objlist[idx][0]];
     var objs = this.objlist[idx][1];
-    //pageGenerator.render(objs.join(""));
-    return objs;
+    pageGenerator[method](objs);
   }
 }
 
-scaltex.DocumentBuilder.prototype.rearrange = function () {
+scaltex.DocumentBuilder.prototype.splitIntoPages = function () {
+  return this.render("splitIntoPages");
 }
 
 /**
@@ -104,7 +107,7 @@ scaltex.ContinuousPages.prototype.render = function (objects) {
   view.innerHTML = page;
 }
 
-scaltex.ContinuousPages.prototype.rearrange = function (objects) {
+scaltex.ContinuousPages.prototype.splitIntoPages = function (objects) {
   var json = {objId: -1};
   json[this.templateEntryPoint] = objects.join("");
 

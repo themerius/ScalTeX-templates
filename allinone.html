@@ -109,7 +109,7 @@ var par_3 = {
 };
 
 var json_from_generator = [
-  {type: "NewPage", context: "ContinousPages"},
+  {type: "NewPage", context: "ContinuousPages"},
   {type: "heading", context: section_1},
   {type: "text", context: par_1},
   {type: "heading", context: subsection_1_1},
@@ -126,11 +126,10 @@ config.templateObjects.figure = new scaltex.Object("figure_2column_left");
 config.pageObjects.ContinuousPages = new scaltex.ContinuousPages(
     new scaltex.Object("page"), "content", "main", config);
 
-render = new scaltex.DocumentBuilder(json_from_generator, config).render();
-
-config.pageObjects.ContinuousPages.render(render);
-window.onload = function(){
-  config.pageObjects.ContinuousPages.rearrange(render);
+var builder = new scaltex.DocumentBuilder(json_from_generator, config);
+builder.render();
+window.onload = function () {
+  builder.splitIntoPages();
 };
 </script>
 
