@@ -108,6 +108,14 @@ var par_3 = {
   objId: 5
 };
 
+var section_2 = {
+  heading: "Second Heading",
+  number: 1,
+  h: "h1",
+  objId: 6
+};
+
+
 var json_from_generator = [
   {type: "NewPage", context: "ContinuousPages"},
   {type: "heading", context: section_1},
@@ -115,7 +123,9 @@ var json_from_generator = [
   {type: "heading", context: subsection_1_1},
   {type: "text", context: par_2},
   {type: "figure", context: figData},
-  {type: "text", context: par_3}
+  {type: "text", context: par_3},
+  {type: "NewPage", context: "ContinuousPages"},
+  {type: "heading", context: section_2}
 ];
 
 var config = new scaltex.Configuration(contentHeight=241.3);
@@ -124,9 +134,9 @@ config.templateObjects.text = new scaltex.Object("text_3column");
 config.templateObjects.heading = new scaltex.Object("heading");
 config.templateObjects.figure = new scaltex.Object("figure_2column_left");
 config.pageObjects.ContinuousPages = new scaltex.ContinuousPages(
-    new scaltex.Object("page"), "content", "main", config);
+    new scaltex.Object("page"), "content", config);
 
-var builder = new scaltex.DocumentBuilder(json_from_generator, config);
+var builder = new scaltex.DocumentBuilder(json_from_generator, config, "main");
 builder.render();
 window.onload = function () {
   builder.splitIntoPages();
