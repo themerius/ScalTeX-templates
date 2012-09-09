@@ -36,7 +36,7 @@ scaltex.Configuration.prototype.maxHeightPerPage = function() {
 /**
  * class: DocumentBuilder
  */
-scaltex.DocumentBuilder = function (jsonGenerator, config, hookinId) {
+scaltex.DocumentBuilder = function (jsonGenerator, config, constructionAreaId, viewAreaId) {
   var list = [];
   for (var item in jsonGenerator) {
     if (jsonGenerator[item].type == "NewPage")
@@ -50,7 +50,8 @@ scaltex.DocumentBuilder = function (jsonGenerator, config, hookinId) {
   }
   this.objlist = list;
   this.config = config;
-  this.hookinId = hookinId;
+  this.constructionAreaId = constructionAreaId;
+  this.viewAreaId = viewAreaId;
 }
 
 scaltex.DocumentBuilder.prototype.render = function (method) {
@@ -60,11 +61,10 @@ scaltex.DocumentBuilder.prototype.render = function (method) {
 
     var elem = document.createElement("div");
     elem.id = "PageClass_"+idx;
-    document.getElementById(this.hookinId).appendChild(elem);
+    document.getElementById(this.constructionAreaId).appendChild(elem);
 
     pageGenerator.render(objs, elem.id);
   }
-  MathJax.Hub.Typeset();
 }
 
 scaltex.DocumentBuilder.prototype.splitIntoPages = function () {
@@ -72,9 +72,9 @@ scaltex.DocumentBuilder.prototype.splitIntoPages = function () {
     var pageGenerator = this.config.pageObjects[this.objlist[idx][0]];
     var objs = this.objlist[idx][1];
 
-    pageGenerator.splitIntoPages(objs, "PageClass_"+idx);
+    pageGenerator.splitIntoPages(objs, this.viewAreaId);
   }
-  MathJax.Hub.Typeset();
+  document.getElementById(this.constructionAreaId).innerHTML = "";
 }
 
 /**
@@ -108,14 +108,15 @@ scaltex.Object.prototype.render = function (json) {
  */
 scaltex.Global.pageCount = 0;
 
-scaltex.ContinuousPages = function (pageObject, entryPoint, config) {
+scaltex.ContinuousPages = function (pageObject, templateEntryPoint, config, appendPoint) {
   this.pageTemplateObject = pageObject;
-  this.templateEntryPoint = entryPoint;
+  this.templateEntryPoint = templateEntryPoint;
   this.config = config;
+  this.appendPoint = appendPoint;
 }
 
 scaltex.ContinuousPages.prototype.newPage = function (viewAreaId) {
-  var view = document.getElementById("viewArea");
+  var view = document.getElementById(viewAreaId);
 
   var json = {objId: -1};
   json[this.templateEntryPoint] = "";
@@ -130,21 +131,24 @@ scaltex.ContinuousPages.prototype.newPage = function (viewAreaId) {
 
   scaltex.Global.pageCount++;
 
-  return el.getElementsByClassName("pageA4")[0].getElementsByClassName("layoutGrid")[0]
+  var ret = el;
+  for (var idx in this.appendPoint)
+    ret = ret.getElementsByClassName(this.appendPoint[idx])[0];
+  return ret;
 }
 
-scaltex.ContinuousPages.prototype.render = function (objects, elem) {
+scaltex.ContinuousPages.prototype.render = function (objects, constructionAreaId) {
   var json = {objId: -1};
   json[this.templateEntryPoint] = objects.join("");
 
   var page = this.pageTemplateObject.render(json);
 
-  var view = document.getElementById(elem);
+  var view = document.getElementById(constructionAreaId);
   view.innerHTML = page;
 }
 
-scaltex.ContinuousPages.prototype.splitIntoPages = function (objects) {
-  var newpage = this.newPage();
+scaltex.ContinuousPages.prototype.splitIntoPages = function (objects, viewAreaId) {
+  var newpage = this.newPage(viewAreaId);
   var actualHeight = 0;
   for (var idx in objects) {
     var object = objects[idx];
@@ -152,7 +156,7 @@ scaltex.ContinuousPages.prototype.splitIntoPages = function (objects) {
     if (actualHeight <= this.config.maxHeightPerPage()) {
       newpage.appendChild(document.getElementById(object.id()));
     } else {
-      newpage = this.newPage();
+      newpage = this.newPage(viewAreaId);
       newpage.appendChild(document.getElementById(object.id()));
       actualHeight = object.height();
     }

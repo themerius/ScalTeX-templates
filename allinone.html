@@ -12,7 +12,6 @@
 </head>
 <body>
 
-<div id="main"></div>
 <div id="constructionArea"></div>
 <div id="viewArea"></div>
 
@@ -166,21 +165,17 @@ config.templateObjects.text = new scaltex.Object("text_3column");
 config.templateObjects.heading = new scaltex.Object("heading");
 config.templateObjects.figure = new scaltex.Object("figure_2column_left");
 config.pageObjects.ContinuousPages = new scaltex.ContinuousPages(
-    new scaltex.Object("page"), "content", config);
+    new scaltex.Object("page"), "content", config, ["pageA4", "layoutGrid"]);
 
 MathJax.Hub.Config({
   tex2jax: {inlineMath: [ ['$','$'], ["\\(","\\)"] ]}
 });
 
-var builder = new scaltex.DocumentBuilder(json_from_generator, config, "main");
+var builder = new scaltex.DocumentBuilder(json_from_generator, config, "constructionArea", "viewArea");
 builder.render();
-//MathJax.Hub.Typeset();
 
 window.onload = function () {
   builder.splitIntoPages();
-  //window.setTimeout("MathJax.Hub.Typeset()", 2000);
-  //MathJax.Hub.Typeset();
-  //var executed = false;
 };
 </script>
 
