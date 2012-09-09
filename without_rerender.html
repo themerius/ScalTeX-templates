@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ScalTex Templating</title>
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/typo.css" />
+<link rel="stylesheet" href="css/grid.css" />
+<script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
+<script src="scaltex/src/scaltex.js"></script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+
+<div id="constructionArea" style="width: 33%; float:left;">Test a</div>
+<div id="viewArea" style="width: 33%; float:right;">Test b</div>
+
+
+<!--
+     BEGIN
+     =====
+-->
+
+<script>
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [ ['$','$'], ["\\(","\\)"] ]}
+});
+
+var constructionArea = document.getElementById("constructionArea");
+var viewArea = document.getElementById("viewArea");
+
+var elem = document.createElement("div");
+elem.id = "test";
+elem.innerHTML = "<p>Ergebnis: $x^2$.</p>";
+
+constructionArea.appendChild(elem);
+
+constructionArea.innerHTML = "";
+constructionArea.appendChild(elem);
+window.setTimeout("viewArea.appendChild(elem)", 2000);
+
+//MathJax.Hub.Typeset();
+</script>
+
+</body>
