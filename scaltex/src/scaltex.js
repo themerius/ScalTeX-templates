@@ -2,6 +2,7 @@
  * Namespace
  */
 var scaltex = {};
+scaltex.Global = {};
 
 scaltex.__version__ = "0.1dev";
 
@@ -94,6 +95,10 @@ scaltex.Object.prototype.render = function (json) {
     return document.getElementById("obj_" + json.objId).offsetHeight;
   }
 
+  str.id = function () {
+    return "obj_"+json.objId;
+  }
+
   return str;
 }
 
@@ -101,10 +106,31 @@ scaltex.Object.prototype.render = function (json) {
  * class: ContinuousPages
  * must be executed within window.onload.
  */
+scaltex.Global.pageCount = 0;
+
 scaltex.ContinuousPages = function (pageObject, entryPoint, config) {
   this.pageTemplateObject = pageObject;
   this.templateEntryPoint = entryPoint;
   this.config = config;
+}
+
+scaltex.ContinuousPages.prototype.newPage = function (viewAreaId) {
+  var view = document.getElementById("viewArea");
+
+  var json = {objId: -1};
+  json[this.templateEntryPoint] = "";
+
+  var page = this.pageTemplateObject.render(json);
+
+  var el = document.createElement("div");
+  el.id = "Page_Nr_" + scaltex.Global.pageCount;
+  el.innerHTML = page;
+
+  view.appendChild(el);
+
+  scaltex.Global.pageCount++;
+
+  return el.getElementsByClassName("pageA4")[0].getElementsByClassName("layoutGrid")[0]
 }
 
 scaltex.ContinuousPages.prototype.render = function (objects, elem) {
@@ -117,28 +143,18 @@ scaltex.ContinuousPages.prototype.render = function (objects, elem) {
   view.innerHTML = page;
 }
 
-scaltex.ContinuousPages.prototype.splitIntoPages = function (objects, elem) {
-  var json = {objId: -1};
-  json[this.templateEntryPoint] = objects.join("");
-
-  var view = document.getElementById(elem);
-  var heightlist = objects.map( function(x){return x.height()} );
-
-  view.innerHTML = "";
-  var cumm = 0;
-  var objs = [];
-  for (idx in objects) {
-    cumm += heightlist[idx];
-    if (cumm <= this.config.maxHeightPerPage()) {
-      objs.push(objects[idx]);
+scaltex.ContinuousPages.prototype.splitIntoPages = function (objects) {
+  var newpage = this.newPage();
+  var actualHeight = 0;
+  for (var idx in objects) {
+    var object = objects[idx];
+    actualHeight += object.height();
+    if (actualHeight <= this.config.maxHeightPerPage()) {
+      newpage.appendChild(document.getElementById(object.id()));
     } else {
-      json[this.templateEntryPoint] = objs.join("");
-      view.innerHTML += this.pageTemplateObject.render(json);
-      cumm = 0;
-      objs = [];
-      objs.push(objects[idx]);
+      newpage = this.newPage();
+      newpage.appendChild(document.getElementById(object.id()));
+      actualHeight = object.height();
     }
-  };
-  json[this.templateEntryPoint] = objs.join("");
-  view.innerHTML += this.pageTemplateObject.render(json);
+  }
 }
