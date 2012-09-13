@@ -20,6 +20,7 @@
   <div class="layoutGrid">
     {{{content}}}
   </div>
+  {{{footer}}}
 </div>
 </script>
 
@@ -159,13 +160,26 @@ var json_from_generator = [
   {type: "text", context: par_6}
 ];
 
+var footer = new scaltex.Object("pagina");
+footer.predefinedJson = {
+  institutName: "Fraunhofer SCAI",
+  pageNr: new scaltex.PageCount("arabic"),
+  objId: -1
+};
+
+var page = new scaltex.Object("page");
+page.predefinedJson = {
+  content: new scaltex.PageContent(),
+  footer: footer,
+  objId: -1
+};
+
 var config = new scaltex.Configuration(contentHeight=241.3);
-config.templateObjects.page = new scaltex.Object("page");
 config.templateObjects.text = new scaltex.Object("text_3column");
 config.templateObjects.heading = new scaltex.Object("heading");
 config.templateObjects.figure = new scaltex.Object("figure_2column_left");
 config.pageObjects.ContinuousPages = new scaltex.ContinuousPages(
-    new scaltex.Object("page"), "content", config, ["pageA4", "layoutGrid"]);
+    page, config, ["pageA4", "layoutGrid"]);
 
 MathJax.Hub.Config({
   tex2jax: {inlineMath: [ ['$','$'], ["\\(","\\)"] ]}

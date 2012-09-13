@@ -83,6 +83,7 @@ scaltex.DocumentBuilder.prototype.splitIntoPages = function () {
 scaltex.Object = function (templateId) {
   template = document.getElementById(templateId);
   this.template = (template == null) ? "" : template.text;
+  this.predefinedJson = null;
 }
 
 scaltex.Object.prototype.render = function (json) {
@@ -102,15 +103,33 @@ scaltex.Object.prototype.render = function (json) {
   return str;
 }
 
+scaltex.Object.prototype.apply_ = function (ptr) {
+  var copy = JSON.parse(JSON.stringify(this.predefinedJson));
+  for (var idx in this.predefinedJson) {
+    if (this.predefinedJson[idx].__proto__.hasOwnProperty("apply_"))
+      copy[idx] = this.predefinedJson[idx].apply_(ptr);
+    else if (typeof this.predefinedJson[idx] == "object")
+      copy[idx] = this.apply_(ptr);
+  }
+  return copy;
+}
+
+scaltex.Object.prototype.render_recursive = function (json) {
+  for (var idx in json) {
+    if (typeof json[idx] == "object")
+      json[idx] = this.predefinedJson[idx].render(json[idx]);
+  }
+  return this.render(json);
+}
+
 /**
  * class: ContinuousPages
  * must be executed within window.onload.
  */
 scaltex.Global.pageCount = 0;
 
-scaltex.ContinuousPages = function (pageObject, templateEntryPoint, config, appendPoint) {
+scaltex.ContinuousPages = function (pageObject, config, appendPoint) {
   this.pageTemplateObject = pageObject;
-  this.templateEntryPoint = templateEntryPoint;
   this.config = config;
   this.appendPoint = appendPoint;
 }
@@ -118,10 +137,8 @@ scaltex.ContinuousPages = function (pageObject, templateEntryPoint, config, appe
 scaltex.ContinuousPages.prototype.newPage = function (viewAreaId) {
   var view = document.getElementById(viewAreaId);
 
-  var json = {objId: -1};
-  json[this.templateEntryPoint] = "";
-
-  var page = this.pageTemplateObject.render(json);
+  var json = this.pageTemplateObject.apply_({pagecontent: ""});
+  var page = this.pageTemplateObject.render_recursive(json);
 
   var el = document.createElement("div");
   el.id = "Page_Nr_" + scaltex.Global.pageCount;
@@ -138,10 +155,8 @@ scaltex.ContinuousPages.prototype.newPage = function (viewAreaId) {
 }
 
 scaltex.ContinuousPages.prototype.render = function (objects, constructionAreaId) {
-  var json = {objId: -1};
-  json[this.templateEntryPoint] = objects.join("");
-
-  var page = this.pageTemplateObject.render(json);
+  var json = this.pageTemplateObject.apply_({pagecontent: objects.join("")});
+  var page = this.pageTemplateObject.render_recursive(json);
 
   var view = document.getElementById(constructionAreaId);
   view.innerHTML = page;
@@ -161,4 +176,24 @@ scaltex.ContinuousPages.prototype.splitIntoPages = function (objects, viewAreaId
       actualHeight = object.height();
     }
   }
+}
+
+/**
+ * class: PageCount
+ */
+scaltex.PageCount = function (numberformat) {
+  this.numberformat = numberformat;
+}
+
+scaltex.PageCount.prototype.apply_ = function (ptr) {
+  return scaltex.Global.pageCount + 1;
+}
+
+/**
+ * class: PageContent
+ */
+scaltex.PageContent = function () {}
+
+scaltex.PageContent.prototype.apply_ = function (ptr) {
+  return ptr.pagecontent;
 }
