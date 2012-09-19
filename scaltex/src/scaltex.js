@@ -29,6 +29,13 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
 }
 
 /**
+ * class: Entity
+ */
+ scaltex.Entity = function () {
+  ;
+ }
+
+/**
  * class: DocumentBuilder
  */
 scaltex.DocumentBuilder = function (jsonGenerator, config, constructionAreaId, viewAreaId) {

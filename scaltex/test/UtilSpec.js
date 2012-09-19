@@ -1,4 +1,4 @@
-describe("UtilSpec", function() {
+describe("Util", function() {
   var util;
 
   beforeEach(function() {  // init Classes
