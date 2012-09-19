@@ -2,17 +2,16 @@
  * Namespace
  */
 var scaltex = {};
-scaltex.Global = {};
 
-scaltex.__version__ = "0.1dev";
+scaltex.__version__ = "0.2dev";
 
 /**
- * class: Configuration
+ * class: Util (singleton)
  */
-scaltex.Configuration = function (contentHeight) {
-  this.contentHeight = contentHeight;
-  this.templateObjects = {};
-  this.pageObjects = {};
+scaltex.Util = function () {
+  if (scaltex.Util.INSTANCE)
+    return scaltex.Util.INSTANCE;
+  scaltex.Util.INSTANCE = this;
 
   var tmpElem = document.createElement("div");
   tmpElem.id = "tmpElem";
@@ -25,12 +24,8 @@ scaltex.Configuration = function (contentHeight) {
   document.body.removeChild(tmpElem);
 }
 
-scaltex.Configuration.prototype.pixelPerMillimeter = function () {
+scaltex.Util.prototype.pixelPerMillimeter = function () {
   return this.dpi / 25.4;
-}
-
-scaltex.Configuration.prototype.maxHeightPerPage = function() {
-  return this.contentHeight * this.pixelPerMillimeter();
 }
 
 /**
