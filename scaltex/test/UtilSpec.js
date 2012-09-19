@@ -1,4 +1,4 @@
-describe("PageSpec", function() {
+describe("UtilSpec", function() {
   var x;
 
   beforeEach(function() {  // init Classes

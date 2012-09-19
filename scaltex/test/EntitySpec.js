@@ -1,4 +1,4 @@
-describe("PageSpec", function() {
+describe("EntitySpec", function() {
   var x;
 
   beforeEach(function() {  // init Classes
