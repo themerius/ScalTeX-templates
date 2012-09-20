@@ -76,4 +76,58 @@ describe("Page", function() {
     expect(page.availableSpace("footer")).toEqual(0);
   });
 
+  describe("PageFactory", function() {
+    var pf, stdPage, sPage;
+
+    beforeEach(function() {  // init Classes
+      stdPage = {
+        template: "pageTemplate",
+        appendPoints: [
+          {type: "content", templateVariable: "appendPoint_0", maxHeight: 200},
+          {type: "footer", templateVariable: "appendPoint_1", maxHeight: 50}
+        ]
+      };
+      sPage = {
+        template: "specialPage",
+        appendPoints: [
+          {type: "content", templateVariable: "appendPoint_0", maxHeight: 200},
+        ]
+      };
+
+      pf = new scaltex.PageFactory({
+        standardpage: stdPage,
+        specialpage: sPage,
+        });
+    });
+
+    it("should save the (maybe incomplete) page configurations " +
+       "with a related name", function() {
+      expect(pf.pageConfig.standardpage).toEqual(stdPage);
+      expect(pf.pageConfig.specialpage).toEqual(sPage);
+    });
+
+    it("should combine the page configs with other page config fragments " +
+       "to a complete page config", function() {
+      var res = pf.modifyJSON("standardpage", {pageId: "Areal_0_Page_0"});
+      expect(res).toEqual(
+        {
+          pageId: "Areal_0_Page_0",
+          template: "normalPage",
+          appendPoints: [
+            {type: "content", templateVariable: "appendPoint_0", maxHeight: 200},
+            {type: "footer", templateVariable: "appendPoint_1", maxHeight: 50}
+          ]
+        });
+      expect(pf.pageConfig.standardpage).toEqual(stdPage);
+    });
+
+    it("should produce Page instances out of a certain page config and " +
+       "other page config fragments", function() {
+      expect(
+        pf.newPage("standardpage", {pageId: "Areal_0_Page_0"}) === page
+      ).toBe(true);
+    });
+
+  });
+
 });

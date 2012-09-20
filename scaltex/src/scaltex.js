@@ -69,6 +69,13 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
  }
 
 /**
+ * class: PageFactory
+ */
+ scaltex.PageFactory = function () {
+  ;
+ }
+
+/**
  * class: DocumentBuilder
  */
 scaltex.DocumentBuilder = function (jsonGenerator, config, constructionAreaId, viewAreaId) {
