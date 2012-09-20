@@ -44,6 +44,11 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
   return this;
  }
 
+ scaltex.Entity.prototype.appendTo = function (elementId) {
+  var otherElement = document.getElementById(elementId);
+  otherElement.appendChild(this.element);
+ }
+
 /**
  * class: DocumentBuilder
  */
