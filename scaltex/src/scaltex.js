@@ -54,6 +54,13 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
   return document.getElementById(this.element.id).offsetHeight;
  }
 
+ scaltex.Entity.prototype.modifyJSON = function (jsonDiff) {
+  for (var key in jsonDiff) {
+    this.json[key] = jsonDiff[key];
+  }
+  return this;
+ }
+
 /**
  * class: DocumentBuilder
  */
