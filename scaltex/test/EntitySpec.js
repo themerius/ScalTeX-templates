@@ -5,7 +5,7 @@ describe("Entity", function() {
   beforeEach(function() {  // init Classes
     tmpl = document.createElement("script");
     tmpl.id = "template";
-    tmpl.innerHTML = "<div style=\"height: 200px\">With {{variable}}</div>";
+    tmpl.innerHTML = "<div style=\"height: 200px\">With {{{variable}}}</div>";
     document.body.appendChild(tmpl);
 
     anotherElement = document.createElement("div");
@@ -30,12 +30,12 @@ describe("Entity", function() {
     ety0.render();
     expect(ety0.element.innerHTML)
       .toEqual("<div style=\"height: 200px\">With foo</div>");
-    expect(ety0.element.id).toEqual("0");
+    expect(ety0.element.id).toEqual("Entity_0");
 
     ety1.render();
     expect(ety1.element.innerHTML)
       .toEqual("<div style=\"height: 200px\">With foo<em>bar</em></div>");
-    expect(ety1.element.id).toEqual("1");
+    expect(ety1.element.id).toEqual("Entity_1");
   });
 
   it("should be able to append the created element to " +

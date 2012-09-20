@@ -31,8 +31,17 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
 /**
  * class: Entity
  */
- scaltex.Entity = function () {
-  ;
+ scaltex.Entity = function (templateId, json) {
+  var template = document.getElementById(templateId);
+  this.template = (template == null) ? "" : template.text;
+  this.json = json;
+  this.element = document.createElement("div");
+ }
+
+ scaltex.Entity.prototype.render = function () {
+  this.element.id = "Entity_" + this.json.id;
+  this.element.innerHTML = Mustache.render(this.template, this.json);
+  return this;
  }
 
 /**
