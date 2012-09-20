@@ -5,15 +5,15 @@ describe("Entity", function() {
   beforeEach(function() {  // init Classes
     tmpl = document.createElement("script");
     tmpl.id = "template";
-    tmpl.innerHTML = "<div style=\"height: 200px\">With {{{variable}}}</div>";
+    tmpl.innerHTML = "<div style=\"height: {{height}}px\">With {{{variable}}}</div>";
     document.body.appendChild(tmpl);
 
     anotherElement = document.createElement("div");
     anotherElement.id = "anotherElement";
     document.body.appendChild(anotherElement);
 
-    json0 = {id: 0, variable: "foo"};
-    json1 = {id: 1, variable: "foo<em>bar</bar>"};
+    json0 = {id: 0, variable: "foo", height: 200};
+    json1 = {id: 1, variable: "foo<em>bar</bar>", height: 250};
 
     ety_empty = new scaltex.Entity();
     ety_withTemplate = new scaltex.Entity("template");
@@ -34,7 +34,7 @@ describe("Entity", function() {
 
     ety1.render();
     expect(ety1.element.innerHTML)
-      .toEqual("<div style=\"height: 200px\">With foo<em>bar</em></div>");
+      .toEqual("<div style=\"height: 250px\">With foo<em>bar</em></div>");
     expect(ety1.element.id).toEqual("Entity_1");
   });
 
@@ -54,7 +54,7 @@ describe("Entity", function() {
         "<div id=\"Entity_0\">" +
         "<div style=\"height: 200px\">With foo</div></div>" +
         "<div id=\"Entity_1\">" +
-        "<div style=\"height: 200px\">With foo<em>bar</em></div></div>");
+        "<div style=\"height: 250px\">With foo<em>bar</em></div></div>");
   });
 
   it("should know it's actual height", function() {
@@ -64,17 +64,17 @@ describe("Entity", function() {
 
     ety1.render();
     ety1.appendTo("anotherElement");
-    expect(ety1.height()).toEqual(200);
+    expect(ety1.height()).toEqual(250);
   });
 
   it("should be able to modify or extend the json", function() {
-    expect(ety0.json).toEqual({id: 0, variable: "foo"});
+    expect(ety0.json).toEqual({id: 0, variable: "foo", height: 200});
 
     ety0.modifyJSON({variable: "foobar"});
-    expect(ety0.json).toEqual({id: 0, variable: "foobar"});
+    expect(ety0.json).toEqual({id: 0, variable: "foobar", height: 200});
 
     ety0.modifyJSON({newvar: "barfoo"});
-    expect(ety0.json).toEqual({id: 0, variable: "foobar", newvar: "barfoo"});
+    expect(ety0.json).toEqual({id: 0, variable: "foobar", newvar: "barfoo", height: 200});
 
     ety0.render();
     ety0.appendTo("anotherElement");

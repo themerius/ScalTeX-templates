@@ -47,6 +47,11 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
  scaltex.Entity.prototype.appendTo = function (elementId) {
   var otherElement = document.getElementById(elementId);
   otherElement.appendChild(this.element);
+  return this;
+ }
+
+ scaltex.Entity.prototype.height = function () {
+  return document.getElementById(this.element.id).offsetHeight;
  }
 
 /**
