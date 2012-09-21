@@ -64,8 +64,17 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
 /**
  * class: Page
  */
- scaltex.Page = function () {
-  ;
+ scaltex.Page = function (config) {
+  this.appendPoints = this.extractAppendPoints(config);
+ }
+
+ scaltex.Page.prototype.extractAppendPoints = function (config) {
+  var json = {};
+  for (var idx in config.appendPoints) {
+    var type = config.appendPoints[idx].type;
+    json[type] = type + '_' + config.pageId;
+  }
+  return json;
  }
 
 /**
