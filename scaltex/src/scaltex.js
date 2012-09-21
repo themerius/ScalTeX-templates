@@ -67,6 +67,7 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
  scaltex.Page = function (config) {
   this.appendPoints = this.extractAppendPoints(config);
   this.maxHeightFor = this.extractMaxHeights(config);
+  this.element = this.createElement(config);
  }
 
  scaltex.Page.prototype.extractAppendPoints = function (config) {
@@ -86,6 +87,25 @@ scaltex.Page.prototype.extractMaxHeights = function (config) {
     json[type] = maxHeight;
   }
   return json;
+}
+
+scaltex.Page.prototype.createElement = function (config) {
+  var pageId = config.pageId;
+  var template = document.getElementById(config.template);
+  template = (template == null) ? "" : template.text;
+
+  var json = {};
+  for (var idx in config.appendPoints) {
+    var templateVariable = config.appendPoints[idx].templateVariable;
+    var type = config.appendPoints[idx].type;
+    json[templateVariable] = type + '_' + config.pageId;
+  }
+
+  var element = document.createElement("div");
+  element.id = pageId;
+  element.innerHTML = Mustache.render(template, json);
+
+  return element;
 }
 
 /**
