@@ -108,6 +108,12 @@ scaltex.Page.prototype.createElement = function (config) {
   return element;
 }
 
+scaltex.Page.prototype.appendTo = function (elementId) {
+  var otherElement = document.getElementById(elementId);
+  otherElement.appendChild(this.element);
+  return this;
+}
+
 /**
  * class: PageFactory
  */
