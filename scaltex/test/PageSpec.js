@@ -102,8 +102,8 @@ describe("Page", function() {
 
     it("should save the (maybe incomplete) page configurations " +
        "with a related name", function() {
-      expect(pf.pageConfig.standardpage).toEqual(stdPage);
-      expect(pf.pageConfig.specialpage).toEqual(sPage);
+      expect(pf.incompletePageConfig.standardpage).toEqual(stdPage);
+      expect(pf.incompletePageConfig.specialpage).toEqual(sPage);
     });
 
     it("should combine the page configs with other page config fragments " +
@@ -112,13 +112,13 @@ describe("Page", function() {
       expect(res).toEqual(
         {
           pageId: "Areal_0_Page_0",
-          template: "normalPage",
+          template: "pageTemplate",
           appendPoints: [
             {type: "content", templateVariable: "appendPoint_0", maxHeight: 200},
             {type: "footer", templateVariable: "appendPoint_1", maxHeight: 50}
           ]
         });
-      expect(pf.pageConfig.standardpage).toEqual(stdPage);
+      expect(pf.incompletePageConfig.standardpage).toEqual(stdPage);
     });
 
     it("should produce Page instances out of a certain page config and " +

@@ -28,6 +28,10 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
   return this.dpi / 25.4;
 }
 
+scaltex.Util.prototype.copyJSON = function (json) {
+  return JSON.parse(JSON.stringify(json));
+}
+
 /**
  * class: Entity
  */
@@ -71,14 +75,14 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
   this.element = this.createElement(config);
  }
 
- scaltex.Page.prototype.extractAppendPoints = function (config) {
+scaltex.Page.prototype.extractAppendPoints = function (config) {
   var json = {};
   for (var idx in config.appendPoints) {
     var type = config.appendPoints[idx].type;
     json[type] = type + '_' + config.pageId;
   }
   return json;
- }
+}
 
 scaltex.Page.prototype.extractMaxHeights = function (config) {
   var json = {};
@@ -128,9 +132,18 @@ scaltex.Page.prototype.fill = function (appendPoint, addedHeight) {
 /**
  * class: PageFactory
  */
- scaltex.PageFactory = function () {
-  ;
- }
+scaltex.PageFactory = function (incompletePageConfig) {
+  this.incompletePageConfig = incompletePageConfig;
+  this.util = new scaltex.Util();
+}
+
+scaltex.PageFactory.prototype.modifyJSON = function (pageName, json) {
+  var modifyedJSON = this.util.copyJSON(this.incompletePageConfig[pageName]);
+  for (var key in json) {
+      modifyedJSON[key] = json[key];
+  }
+  return modifyedJSON;
+}
 
 /**
  * class: DocumentBuilder
