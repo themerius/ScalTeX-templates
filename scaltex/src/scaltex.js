@@ -67,6 +67,7 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
  scaltex.Page = function (config) {
   this.appendPoints = this.extractAppendPoints(config);
   this.maxHeightFor = this.extractMaxHeights(config);
+  this.availableSpace = this.extractMaxHeights(config);
   this.element = this.createElement(config);
  }
 
@@ -112,6 +113,16 @@ scaltex.Page.prototype.appendTo = function (elementId) {
   var otherElement = document.getElementById(elementId);
   otherElement.appendChild(this.element);
   return this;
+}
+
+scaltex.Page.prototype.fill = function (appendPoint, addedHeight) {
+  var availableSpace = this.availableSpace[appendPoint];
+
+  if (availableSpace < addedHeight)
+    return false;
+
+  this.availableSpace[appendPoint] = availableSpace - addedHeight;
+  return true;
 }
 
 /**

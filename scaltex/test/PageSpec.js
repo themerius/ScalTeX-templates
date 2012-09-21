@@ -61,19 +61,19 @@ describe("Page", function() {
   });
 
   it("should know the available space on the page resp. it's append points", function() {
-    page.fill("content", 75);
-    expect(page.availableSpace("content")).toEqual(125);
-    page.fill("content", 100);
-    expect(page.availableSpace("content")).toEqual(25);
-    page.fill("content", 26);  // may not added 
-    expect(page.availableSpace("content")).toEqual(25);
+    expect(page.fill("content", 75)).toBe(true);
+    expect(page.availableSpace.content).toEqual(125);
+    expect(page.fill("content", 100)).toBe(true);
+    expect(page.availableSpace.content).toEqual(25);
+    expect(page.fill("content", 26)).toBe(false);  // may not added 
+    expect(page.availableSpace.content).toEqual(25);
 
-    page.fill("footer", 25);
-    expect(page.availableSpace("footer")).toEqual(25);
-    page.fill("footer", 25);
-    expect(page.availableSpace("footer")).toEqual(0);
-    page.fill("footer", 1);  // may not added
-    expect(page.availableSpace("footer")).toEqual(0);
+    expect(page.fill("footer", 25)).toBe(true);
+    expect(page.availableSpace.footer).toEqual(25);
+    expect(page.fill("footer", 25)).toBe(true);
+    expect(page.availableSpace.footer).toEqual(0);
+    expect(page.fill("footer", 1)).toBe(false);  // may not added
+    expect(page.availableSpace.footer).toEqual(0);
   });
 
   describe("PageFactory", function() {
