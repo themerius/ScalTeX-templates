@@ -36,6 +36,7 @@ scaltex.Util.prototype.copyJSON = function (json) {
  * class: Entity
  */
 scaltex.Entity = function (templateId, json) {
+  this.type = templateId;
   var template = document.getElementById(templateId);
   this.template = (template == null) ? "" : template.text;
   this.json = json;
