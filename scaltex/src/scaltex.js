@@ -145,6 +145,11 @@ scaltex.PageFactory.prototype.modifyJSON = function (pageName, json) {
   return modifyedJSON;
 }
 
+scaltex.PageFactory.prototype.newPage = function (pageName, json) {
+  var config = this.modifyJSON(pageName, json);
+  return new scaltex.Page(config);
+}
+
 /**
  * class: DocumentBuilder
  */

@@ -123,9 +123,12 @@ describe("Page", function() {
 
     it("should produce Page instances out of a certain page config and " +
        "other page config fragments", function() {
-      expect(
-        pf.newPage("standardpage", {pageId: "Areal_0_Page_0"}) === page
-      ).toBe(true);
+      var newpage = pf.newPage("standardpage", {pageId: "Areal_0_Page_0"});
+      expect(newpage.appendPoints).toEqual(page.appendPoints);
+      expect(newpage.maxHeightFor).toEqual(page.maxHeightFor);
+      expect(newpage.availableSpace).toEqual(page.availableSpace);
+      expect(newpage.element.id).toEqual(page.element.id);
+      expect(newpage.element.innerHTML).toEqual(page.element.innerHTML);
     });
 
   });
