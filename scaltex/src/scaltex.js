@@ -66,6 +66,7 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
  */
  scaltex.Page = function (config) {
   this.appendPoints = this.extractAppendPoints(config);
+  this.maxHeightFor = this.extractMaxHeights(config);
  }
 
  scaltex.Page.prototype.extractAppendPoints = function (config) {
@@ -76,6 +77,16 @@ scaltex.Util.prototype.pixelPerMillimeter = function () {
   }
   return json;
  }
+
+scaltex.Page.prototype.extractMaxHeights = function (config) {
+  var json = {};
+  for (var idx in config.appendPoints) {
+    var type = config.appendPoints[idx].type;
+    var maxHeight = config.appendPoints[idx].maxHeight;
+    json[type] = maxHeight;
+  }
+  return json;
+}
 
 /**
  * class: PageFactory
