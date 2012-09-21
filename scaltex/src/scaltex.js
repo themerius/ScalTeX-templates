@@ -35,45 +35,45 @@ scaltex.Util.prototype.copyJSON = function (json) {
 /**
  * class: Entity
  */
- scaltex.Entity = function (templateId, json) {
+scaltex.Entity = function (templateId, json) {
   var template = document.getElementById(templateId);
   this.template = (template == null) ? "" : template.text;
   this.json = json;
   this.element = document.createElement("div");
- }
+}
 
- scaltex.Entity.prototype.render = function () {
+scaltex.Entity.prototype.render = function () {
   this.element.id = "Entity_" + this.json.id;
   this.element.innerHTML = Mustache.render(this.template, this.json);
   return this;
- }
+}
 
- scaltex.Entity.prototype.appendTo = function (elementId) {
+scaltex.Entity.prototype.appendTo = function (elementId) {
   var otherElement = document.getElementById(elementId);
   otherElement.appendChild(this.element);
   return this;
- }
+}
 
- scaltex.Entity.prototype.height = function () {
+scaltex.Entity.prototype.height = function () {
   return document.getElementById(this.element.id).offsetHeight;
- }
+}
 
- scaltex.Entity.prototype.modifyJSON = function (jsonDiff) {
+scaltex.Entity.prototype.modifyJSON = function (jsonDiff) {
   for (var key in jsonDiff) {
     this.json[key] = jsonDiff[key];
   }
   return this;
- }
+}
 
 /**
  * class: Page
  */
- scaltex.Page = function (config) {
+scaltex.Page = function (config) {
   this.appendPoints = this.extractAppendPoints(config);
   this.maxHeightFor = this.extractMaxHeights(config);
   this.availableSpace = this.extractMaxHeights(config);
   this.element = this.createElement(config);
- }
+}
 
 scaltex.Page.prototype.extractAppendPoints = function (config) {
   var json = {};
