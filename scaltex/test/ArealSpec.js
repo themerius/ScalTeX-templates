@@ -144,7 +144,7 @@ describe("Areal", function() {
       .innerHTML).toEqual(
         "<div class=\"pageTypeX\">" +
           "<div id=\"content_Areal_0_Page_2\" class=\"mainContent\">" +
-            "<div id=\"Entity_1\"><div style=\"height: 50px\">X</div></div>");
+            "<div id=\"Entity_1\"><div style=\"height: 50px\">X</div></div>" +
           "</div>" +
           "<div id=\"footer_Areal_0_Page_2\" class=\"footer\"></div>" +
         "</div>");
