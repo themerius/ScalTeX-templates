@@ -1,15 +1,39 @@
 describe("Areal", function() {
-  var areal, seq, w, x, y, z;
+  var areal, page, pageFactory, w, x, y, z, seq, arealElement;
 
   beforeEach(function() {  // init Classes
+    page = document.createElement("script");
+    page.id = "pageTypeX";
+    page.innerHTML = "<div class=\"pageTypeX\">" +
+      "<div id=\"{{{appendPoint_0}}}\" class=\"mainContent\"></div>" +
+      "<div id=\"{{{appendPoint_1}}}\" class=\"footer\"></div>" +
+      "</div>";
+    document.body.appendChild(page);
+
+    pageFactory = new scaltex.PageFactory({
+      pageTypeX: {
+        template: "pageTypeX",
+        appendPoints: [
+          {type: "content", templateVariable: "appendPoint_0", maxHeight: 200},
+          {type: "footer", templateVariable: "appendPoint_1", maxHeight: 50}
+        ]
+      },
+      pageTypeY: {
+        template: "pageTypeX",
+        appendPoints: [
+          {type: "content", templateVariable: "appendPoint_0", maxHeight: 200}
+        ]
+      }
+    });
+
     w = document.createElement("script");
     w.id = "entityTypeW";
-    w.innerHTML = "<div>{{w}}</div>";
+    w.innerHTML = "<div style=\"height: 200px\">{{w}}</div>";
     document.body.appendChild(w);
 
     x = document.createElement("script");
     x.id = "entityTypeX";
-    x.innerHTML = "<div>{{x}}</div>";
+    x.innerHTML = "<div style=\"height: 50px\">{{x}}</div>";
     document.body.appendChild(x);
 
     y = document.createElement("script");
@@ -37,7 +61,11 @@ describe("Areal", function() {
       }
     ];
 
-    areal = new scaltex.Areal("Areal_0", seq);
+    arealElement = document.createElement("div");
+    arealElement.id = "Areal_0";
+    document.body.appendChild(arealElement);
+
+    areal = new scaltex.Areal("Areal_0", seq, pageFactory);
   });
 
   afterEach(function() {
@@ -45,10 +73,12 @@ describe("Areal", function() {
       document.getElementById("Areal_0_pageTypeX_constructionArea"));
     document.body.removeChild(
       document.getElementById("Areal_0_pageTypeY_constructionArea"));
+    document.body.removeChild(page);
     document.body.removeChild(w);
     document.body.removeChild(x);
     document.body.removeChild(y);
     document.body.removeChild(z);
+    document.body.replaceChild(arealElement);
   });
 
   it("should be able prepare a construction area for every page type", function() {
@@ -86,8 +116,8 @@ describe("Areal", function() {
 
     expect(document.getElementById("Areal_0_pageTypeX_constructionArea")
       .innerHTML).toEqual(
-        "<div id=\"Entity_0\"><div>W</div></div>" +
-        "<div id=\"Entity_1\"><div>X</div></div>");
+        "<div id=\"Entity_0\"><div style=\"height: 200px\">W</div></div>" +
+        "<div id=\"Entity_1\"><div style=\"height: 50px\">X</div></div>");
 
     expect(document.getElementById("Areal_0_pageTypeY_constructionArea")
       .innerHTML).toEqual(
@@ -101,19 +131,44 @@ describe("Areal", function() {
     areal.mountEntitiesToConstructionArea();
     areal.moveEntitiesToNewPages();
 
-    expect(document.getElementById("Areal_0_Page_0")
-      .innerHTML).toEqual(
-        "<div id=\"Entity_0\"><div>W</div></div>" +
-        "<div id=\"Entity_1\"><div>X</div></div>");
-
     expect(document.getElementById("Areal_0_Page_1")
       .innerHTML).toEqual(
-        "<div id=\"Entity_2\"><div>Y</div></div>" +
-        "<div id=\"Entity_3\"><div>Z</div></div>");
+        "<div class=\"pageTypeX\">" +
+          "<div id=\"content_Areal_0_Page_1\" class=\"mainContent\">" +
+            "<div id=\"Entity_0\"><div style=\"height: 200px\">W</div>" +
+          "</div>" +
+          "<div id=\"footer_Areal_0_Page_1\" class=\"footer\"></div>" +
+        "</div>");
+
+    expect(document.getElementById("Areal_0_Page_2")
+      .innerHTML).toEqual(
+        "<div class=\"pageTypeX\">" +
+          "<div id=\"content_Areal_0_Page_2\" class=\"mainContent\">" +
+            "<div id=\"Entity_1\"><div style=\"height: 50px\">X</div></div>");
+          "</div>" +
+          "<div id=\"footer_Areal_0_Page_2\" class=\"footer\"></div>" +
+        "</div>");
+
+    expect(document.getElementById("Areal_0_Page_3")
+      .innerHTML).toEqual(
+        "<div class=\"pageTypeX\">" +
+          "<div id=\"content_Areal_0_Page_3\" class=\"mainContent\">" +
+            "<div id=\"Entity_2\"><div>Y</div></div>" +
+            "<div id=\"Entity_3\"><div>Z</div></div>" +
+          "</div>" +
+        "</div>");
   });
 
   it("should keep track of the page numbers of the viewed pages", function() {
-    expect(x()).toEqual("some value");
+    areal.generateEntities();
+    areal.renderEntities();
+    areal.mountEntitiesToConstructionArea();
+
+    expect(areal.pageNr).toEqual(0);
+
+    areal.moveEntitiesToNewPages();
+
+    expect(areal.pageNr).toEqual(3);
   });
 
 });

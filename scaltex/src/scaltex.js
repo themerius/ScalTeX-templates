@@ -152,6 +152,13 @@ scaltex.PageFactory.prototype.newPage = function (pageName, json) {
 }
 
 /**
+ * class: Areal
+ */
+scaltex.Areal = function () {
+  ;
+}
+
+/**
  * class: DocumentBuilder
  */
 scaltex.DocumentBuilder = function (jsonGenerator, config, constructionAreaId, viewAreaId) {
