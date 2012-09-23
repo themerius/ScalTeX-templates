@@ -71,10 +71,6 @@ describe("Areal", function() {
   });
 
   afterEach(function() {
-    document.body.removeChild(
-      document.getElementById("Areal_0_pageTypeX_constructionArea"));
-    document.body.removeChild(
-      document.getElementById("Areal_0_pageTypeY_constructionArea"));
     document.body.removeChild(page);
     document.body.removeChild(w);
     document.body.removeChild(x);
@@ -85,13 +81,25 @@ describe("Areal", function() {
 
   it("should be able prepare a construction area for every page type", function() {
     expect(document.getElementById("Areal_0_pageTypeX_constructionArea")
-      .innerHTML).toEqual("");
+      .innerHTML).toEqual(
+        "<div class=\"pageTypeX\">" +
+          "<div id=\"content_Areal_0_pageTypeX_constructionArea\" " +
+               "class=\"mainContent\"></div>" +
+          "<div id=\"footer_Areal_0_pageTypeX_constructionArea\" " +
+               "class=\"footer\"></div>" +
+        "</div>");
     expect(document.getElementById("Areal_0_pageTypeY_constructionArea")
-      .innerHTML).toEqual("");
-    expect(areal.constructionAreas[0].id)
-      .toEqual("Areal_0_pageTypeX_constructionArea");
-    expect(areal.constructionAreas[1].id)
-      .toEqual("Areal_0_pageTypeY_constructionArea");
+      .innerHTML).toEqual(
+        "<div class=\"pageTypeX\">" +
+          "<div id=\"content_Areal_0_pageTypeY_constructionArea\" " +
+               "class=\"mainContent\"></div>" +
+          "<div id=\"\" class=\"footer\"></div>" +
+        "</div>");
+    expect(areal.constructionAreas.pageTypeX.appendPoints)
+      .toEqual({ content : 'content_Areal_0_pageTypeX_constructionArea',
+                 footer : 'footer_Areal_0_pageTypeX_constructionArea' });
+    expect(areal.constructionAreas.pageTypeY.appendPoints)
+      .toEqual({ content : 'content_Areal_0_pageTypeY_constructionArea' });
   });
 
   it("should generate entities out of a json-sequence and keep them", function() {

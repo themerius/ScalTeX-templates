@@ -156,6 +156,7 @@ scaltex.PageFactory.prototype.newPage = function (pageName, json) {
  */
 scaltex.Areal = function (name, seq, pageFactory) {
   this.name = name;
+  this.element = document.getElementById(name);
   this.seq = seq;
   this.pageFactory = pageFactory;
   this.constructionAreas = this.createConstructionAreas();
@@ -163,14 +164,12 @@ scaltex.Areal = function (name, seq, pageFactory) {
 }
 
 scaltex.Areal.prototype.createConstructionAreas = function () {
-  var elems = [];
+  var pages = {};
   for (var key in this.pageFactory.incompletePageConfig) {
-    var elem = document.createElement("div");
-    elem.id = this.name + "_" + key + "_constructionArea";
-    document.body.appendChild(elem);
-    elems.push(elem);
+    pages[key] = this.pageFactory.newPage(key, {pageId: this.name + "_" + key + "_constructionArea"});
+    pages[key].appendTo(this.name);
   }
-  return elems;
+  return pages;
 }
 
 scaltex.Areal.prototype.generateEntities = function () {
@@ -185,6 +184,7 @@ scaltex.Areal.prototype.generateEntities = function () {
   }
   return this;
 }
+
 
 /**
  * class: DocumentBuilder
