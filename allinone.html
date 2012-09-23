@@ -12,20 +12,17 @@
 </head>
 <body>
 
-<div id="constructionArea"></div>
-<div id="viewArea"></div>
+<div id="DocumentAreal"></div>
 
 <script id="page" type="text/template">
 <div class="pageA4">
-  <div class="layoutGrid">
-    {{{content}}}
-  </div>
-  {{{footer}}}
+  <div id="{{{appendPoint_content}}}" class="layoutGrid"></div>
+  <div id="{{{appendPoint_footer}}}"></div>
 </div>
 </script>
 
 <script id="pagina" type="text/template">
-<div id="obj_{{objId}}" class="layoutGridBottom pagina">
+<div class="layoutGridBottom pagina">
   <div class="row line">
     <div class="col3">
       <p>{{institutName}}</p>
@@ -38,7 +35,7 @@
 </script>
 
 <script id="text_3column" type="text/template">
-<div id="obj_{{objId}}" class="row">
+<div class="row">
   <div class="col3">
     <p>{{{text}}}</p>
     {{#newline}}
@@ -50,14 +47,14 @@
 </script>
 
 <script id="heading" type="text/template">
-<div id="obj_{{objId}}" class="row">
+<div class="row">
   <div class="col4"><{{h}}>{{number}}</br>{{heading}}</{{h}}></br></br></div>
   <div class="row-end">&nbsp;</div>
 </div>
 </script>
 
 <script id="figure_2column_left" type="text/template">
-<div id="obj_{{objId}}" class="row topSpace bottomSpace">
+<div class="row topSpace bottomSpace">
   <div class="col2">
     <img class="scaling" src="{{src}}" alt="{{description}}" />
   </div>
@@ -144,53 +141,62 @@ var par_6 = {
 };
 
 
-var json_from_generator = [
-  {type: "NewPage", context: "ContinuousPages"},
-  {type: "heading", context: section_1},
-  {type: "text", context: par_1},
-  {type: "heading", context: subsection_1_1},
-  {type: "text", context: par_2},
-  {type: "figure", context: figData},
-  {type: "text", context: par_3},
-  {type: "NewPage", context: "ContinuousPages"},
-  {type: "heading", context: section_2},
-  {type: "heading", context: subsection_2_1},
-  {type: "text", context: par_4},
-  {type: "text", context: par_5},
-  {type: "text", context: par_6}
+var seq = [
+  {
+    pageType: "page",
+    entities: [
+      {templateId: "heading", json: section_1},
+      {templateId: "text_3column", json: par_1},
+      {templateId: "heading", json: subsection_1_1},
+      {templateId: "text_3column", json: par_2},
+      {templateId: "figure_2column_left", json: figData},
+      {templateId: "text_3column", json: par_3}
+    ]
+  },
+  {
+    pageType: "page2",
+    entities: [
+      {templateId: "heading", json: section_2},
+      {templateId: "heading", json: subsection_2_1},
+      {templateId: "text_3column", json: par_4},
+      {templateId: "text_3column", json: par_5},
+      {templateId: "text_3column", json: par_6}
+    ]
+  }
 ];
 
-var footer = new scaltex.Object("pagina");
-footer.predefinedJson = {
-  institutName: "Fraunhofer SCAI",
-  pageNr: new scaltex.PageCount("arabic"),
-  objId: -1
+var page = {
+  template: "page",
+  appendPoints: [
+    {type: "content", templateVariable: "appendPoint_content", maxHeight: 912},
+    {type: "footer", templateVariable: "appendPoint_footer", maxHeight: 48}
+  ]
+}
+
+var page2 = {
+  template: "page",
+  appendPoints: [
+    {type: "content", templateVariable: "appendPoint_content", maxHeight: 912},
+    {type: "footer", templateVariable: "appendPoint_footer", maxHeight: 48}
+  ]
+}
+
+var pageFactory = new scaltex.PageFactory({page: page, page2: page2})
+
+var documentAreal = new scaltex.Areal("DocumentAreal", seq, pageFactory);
+documentAreal.generateEntities();
+documentAreal.renderEntities();
+documentAreal.mountEntitiesToConstructionArea();
+
+window.onload = function () {
+  documentAreal.moveEntitiesToNewPages();
 };
 
-var page = new scaltex.Object("page");
-page.predefinedJson = {
-  content: new scaltex.PageContent(),
-  footer: footer,
-  objId: -1
-};
 
-var config = new scaltex.Configuration(contentHeight=241.3);
-config.templateObjects.text = new scaltex.Object("text_3column");
-config.templateObjects.heading = new scaltex.Object("heading");
-config.templateObjects.figure = new scaltex.Object("figure_2column_left");
-config.pageObjects.ContinuousPages = new scaltex.ContinuousPages(
-    page, config, ["pageA4", "layoutGrid"]);
-
+// Mathjax Config
 MathJax.Hub.Config({
   tex2jax: {inlineMath: [ ['$','$'], ["\\(","\\)"] ]}
 });
-
-var builder = new scaltex.DocumentBuilder(json_from_generator, config, "constructionArea", "viewArea");
-builder.render();
-
-window.onload = function () {
-  builder.splitIntoPages();
-};
 </script>
 
 </body>
