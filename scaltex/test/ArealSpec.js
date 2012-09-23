@@ -127,12 +127,12 @@ describe("Areal", function() {
     areal.renderEntities();
     areal.mountEntitiesToConstructionArea();
 
-    expect(document.getElementById("Areal_0_pageTypeX_constructionArea")
+    expect(document.getElementById("content_Areal_0_pageTypeX_constructionArea")
       .innerHTML).toEqual(
         "<div id=\"Entity_0\"><div style=\"height: 200px\">W</div></div>" +
         "<div id=\"Entity_1\"><div style=\"height: 50px\">X</div></div>");
 
-    expect(document.getElementById("Areal_0_pageTypeY_constructionArea")
+    expect(document.getElementById("content_Areal_0_pageTypeY_constructionArea")
       .innerHTML).toEqual(
         "<div id=\"Entity_2\"><div>Y</div></div>" +
         "<div id=\"Entity_3\"><div>Z</div></div>");

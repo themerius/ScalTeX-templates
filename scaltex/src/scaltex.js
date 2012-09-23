@@ -41,6 +41,7 @@ scaltex.Entity = function (templateId, json) {
   this.template = (template == null) ? "" : template.text;
   this.json = json;
   this.element = document.createElement("div");
+  this.requiredPageAppendPoint = "content";
 }
 
 scaltex.Entity.prototype.render = function () {
@@ -185,6 +186,20 @@ scaltex.Areal.prototype.generateEntities = function () {
   return this;
 }
 
+scaltex.Areal.prototype.renderEntities = function () {
+  for (var idx in this.entities)
+    this.entities[idx].entity.render();
+};
+
+scaltex.Areal.prototype.mountEntitiesToConstructionArea = function () {
+  for (var idx in this.entities) {
+    var pageType = this.entities[idx].pageType;
+    var entity = this.entities[idx].entity;
+    var appendPoint = this.entities[idx].entity.requiredPageAppendPoint;
+    appendPoint = this.constructionAreas[pageType].appendPoints[appendPoint];
+    entity.appendTo(appendPoint);
+  }
+}
 
 /**
  * class: DocumentBuilder
