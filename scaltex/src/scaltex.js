@@ -159,6 +159,7 @@ scaltex.Areal = function (name, seq, pageFactory) {
   this.seq = seq;
   this.pageFactory = pageFactory;
   this.constructionAreas = this.createConstructionAreas();
+  this.entities = [];
 }
 
 scaltex.Areal.prototype.createConstructionAreas = function () {
@@ -170,6 +171,19 @@ scaltex.Areal.prototype.createConstructionAreas = function () {
     elems.push(elem);
   }
   return elems;
+}
+
+scaltex.Areal.prototype.generateEntities = function () {
+  for (var idx in this.seq) {
+    var pageType = this.seq[idx].pageType;
+    var entities = this.seq[idx].entities;
+    for (var jdx in entities) {
+      var entityContext = entities[jdx];
+      var entity = new scaltex.Entity(entityContext.templateId, entityContext.json);
+      this.entities.push({pageType: pageType, entity: entity});
+    }
+  }
+  return this;
 }
 
 /**

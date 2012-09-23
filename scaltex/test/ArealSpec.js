@@ -48,15 +48,17 @@ describe("Areal", function() {
 
     seq = [
       {
-        pageTypeX: [
-          {entityTypeW: {id: 0, w: "W"}},
-          {entityTypeX: {id: 1, x: "X"}}
+        pageType: "pageTypeX",
+        entities: [
+          {templateId: "entityTypeW", json: {id: 0, w: "W"}},
+          {templateId: "entityTypeX", json: {id: 1, x: "X"}}
         ]
       },
       {
-        pageTypeY: [
-          {entityTypeY: {id: 2, y: "Y"}},
-          {entityTypeZ: {id: 3, z: "Z"}}
+        pageType: "pageTypeY",
+        entities: [
+          {templateId: "entityTypeY", json: {id: 2, y: "Y"}},
+          {templateId: "entityTypeZ", json: {id: 3, z: "Z"}}
         ]
       }
     ];
