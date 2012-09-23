@@ -162,6 +162,7 @@ scaltex.Areal = function (name, seq, pageFactory) {
   this.pageFactory = pageFactory;
   this.constructionAreas = this.createConstructionAreas();
   this.entities = [];
+  this.viewedPages = [];
 }
 
 scaltex.Areal.prototype.createConstructionAreas = function () {
@@ -199,6 +200,38 @@ scaltex.Areal.prototype.mountEntitiesToConstructionArea = function () {
     appendPoint = this.constructionAreas[pageType].appendPoints[appendPoint];
     entity.appendTo(appendPoint);
   }
+}
+
+scaltex.Areal.prototype.nextPageNr = function () {
+  return this.viewedPages.length + 1;
+}
+
+scaltex.Areal.prototype.moveEntitiesToNewPages = function () {
+  var currentPageType = null;
+  for (var idx in this.entities) {
+    var entity = this.entities[idx].entity;
+    var pageType = this.entities[idx].pageType;
+    var appendPoint = this.entities[idx].entity.requiredPageAppendPoint;
+    var actualPage = this.viewedPages.slice(-1)[0];
+
+    var noPage = !currentPageType;
+    var falsePage = currentPageType != pageType;
+    var notEnoughSpace = (actualPage == undefined) ? true : actualPage.availableSpace[appendPoint] < entity.height();
+    var newPageCondition = noPage || falsePage || notEnoughSpace;
+
+    if (newPageCondition) {
+      var config = {pageId: this.name + "_" + "Page_" + this.nextPageNr()};
+      actualPage = this.pageFactory.newPage(pageType, config);
+      actualPage.appendTo(this.name);
+      this.viewedPages.push(actualPage);
+      currentPageType = pageType;
+    }
+
+    actualPage.fill(appendPoint, entity.height());
+    appendPoint = actualPage.appendPoints[appendPoint];
+    entity.appendTo(appendPoint);
+  }
+  return this;
 }
 
 /**

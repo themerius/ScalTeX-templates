@@ -148,7 +148,7 @@ describe("Areal", function() {
       .innerHTML).toEqual(
         "<div class=\"pageTypeX\">" +
           "<div id=\"content_Areal_0_Page_1\" class=\"mainContent\">" +
-            "<div id=\"Entity_0\"><div style=\"height: 200px\">W</div>" +
+            "<div id=\"Entity_0\"><div style=\"height: 200px\">W</div></div>" +
           "</div>" +
           "<div id=\"footer_Areal_0_Page_1\" class=\"footer\"></div>" +
         "</div>");
@@ -169,6 +169,7 @@ describe("Areal", function() {
             "<div id=\"Entity_2\"><div>Y</div></div>" +
             "<div id=\"Entity_3\"><div>Z</div></div>" +
           "</div>" +
+          "<div id=\"\" class=\"footer\"></div>" +
         "</div>");
   });
 
@@ -177,11 +178,11 @@ describe("Areal", function() {
     areal.renderEntities();
     areal.mountEntitiesToConstructionArea();
 
-    expect(areal.pageNr).toEqual(0);
+    expect(areal.nextPageNr()).toEqual(1);
 
     areal.moveEntitiesToNewPages();
 
-    expect(areal.pageNr).toEqual(3);
+    expect(areal.nextPageNr()).toEqual(4);
   });
 
 });
