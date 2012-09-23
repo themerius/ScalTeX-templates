@@ -78,15 +78,18 @@ describe("Areal", function() {
     document.body.removeChild(x);
     document.body.removeChild(y);
     document.body.removeChild(z);
-    document.body.replaceChild(arealElement);
+    document.body.removeChild(arealElement);
   });
 
   it("should be able prepare a construction area for every page type", function() {
-    areal.createConstructionArea();
     expect(document.getElementById("Areal_0_pageTypeX_constructionArea")
       .innerHTML).toEqual("");
     expect(document.getElementById("Areal_0_pageTypeY_constructionArea")
       .innerHTML).toEqual("");
+    expect(areal.constructionAreas[0].id)
+      .toEqual("Areal_0_pageTypeX_constructionArea");
+    expect(areal.constructionAreas[1].id)
+      .toEqual("Areal_0_pageTypeY_constructionArea");
   });
 
   it("should generate entities out of a json-sequence and keep them", function() {

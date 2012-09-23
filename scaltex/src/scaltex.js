@@ -154,8 +154,22 @@ scaltex.PageFactory.prototype.newPage = function (pageName, json) {
 /**
  * class: Areal
  */
-scaltex.Areal = function () {
-  ;
+scaltex.Areal = function (name, seq, pageFactory) {
+  this.name = name;
+  this.seq = seq;
+  this.pageFactory = pageFactory;
+  this.constructionAreas = this.createConstructionAreas();
+}
+
+scaltex.Areal.prototype.createConstructionAreas = function () {
+  var elems = [];
+  for (var key in this.pageFactory.incompletePageConfig) {
+    var elem = document.createElement("div");
+    elem.id = this.name + "_" + key + "_constructionArea";
+    document.body.appendChild(elem);
+    elems.push(elem);
+  }
+  return elems;
 }
 
 /**
