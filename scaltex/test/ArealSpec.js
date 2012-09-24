@@ -185,4 +185,12 @@ describe("Areal", function() {
     expect(areal.nextPageNr()).toEqual(4);
   });
 
+  it("should be able to destruct the construction areas", function() {
+    areal.destructConstructionAreas();
+    expect(document.getElementById("Areal_0_pageTypeX_constructionArea"))
+      .toEqual(null);
+    expect(document.getElementById("Areal_0_pageTypeY_constructionArea"))
+      .toEqual(null);
+  });
+
 });

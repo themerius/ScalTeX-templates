@@ -233,3 +233,11 @@ scaltex.Areal.prototype.moveEntitiesToNewPages = function () {
   }
   return this;
 }
+
+scaltex.Areal.prototype.destructConstructionAreas = function () {
+  for (var key in this.constructionAreas) {
+    var elem = this.constructionAreas[key].element;
+    elem.parentNode.removeChild(elem);
+  }
+  return this;
+}
