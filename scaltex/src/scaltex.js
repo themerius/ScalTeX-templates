@@ -47,6 +47,7 @@ scaltex.Entity = function (templateId, json) {
 scaltex.Entity.prototype.render = function () {
   this.element.id = "Entity_" + this.json.id;
   this.element.innerHTML = Mustache.render(this.template, this.json);
+  this.requiredPageAppendPoint = (this.json.appendPoint == undefined) ? "content" : this.json.appendPoint;
   return this;
 }
 
