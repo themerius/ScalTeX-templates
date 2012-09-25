@@ -155,7 +155,7 @@ scaltex.PageFactory.prototype.newPage = function (pageName, json) {
 /**
  * class: Areal
  */
-scaltex.Areal = function (name, seq, pageFactory) {
+scaltex.Areal = function (name, seq, pageFactory, specialEntities) {
   this.name = name;
   this.element = document.getElementById(name);
   this.seq = seq;
@@ -163,6 +163,8 @@ scaltex.Areal = function (name, seq, pageFactory) {
   this.constructionAreas = this.createConstructionAreas();
   this.entities = [];
   this.viewedPages = [];
+  this.specialEntities = specialEntities;
+  this.util = new scaltex.Util();
 }
 
 scaltex.Areal.prototype.createConstructionAreas = function () {
@@ -185,6 +187,29 @@ scaltex.Areal.prototype.generateEntities = function () {
     }
   }
   return this;
+}
+
+scaltex.Areal.prototype.generateSpecialEntities = function () {
+  var ret = [];
+  for (var idx in this.specialEntities) {
+    var templateId = this.specialEntities[idx].templateId;
+    var json = this.util.copyJSON(this.specialEntities[idx].json);
+    var requiredPageAppendPoint = this.specialEntities[idx].requiredPageAppendPoint;
+
+    var entity = new scaltex.Entity(templateId, json);
+
+    for (var key in entity.json)
+      if (entity.json[key] == "@nextPageNr") {
+        var tmp = {};
+        tmp[key] = this.nextPageNr();
+        tmp.id = "Special_" + this.name + "_" + this.nextPageNr();
+        entity.modifyJSON(tmp);
+      }
+
+    entity.requiredPageAppendPoint = requiredPageAppendPoint;
+    ret.push(entity);
+  }
+  return ret;
 }
 
 scaltex.Areal.prototype.renderEntities = function () {
@@ -223,6 +248,7 @@ scaltex.Areal.prototype.moveEntitiesToNewPages = function () {
       var config = {pageId: this.name + "_" + "Page_" + this.nextPageNr()};
       actualPage = this.pageFactory.newPage(pageType, config);
       actualPage.appendTo(this.name);
+      this.appendSpecialEntitiesTo(actualPage);
       this.viewedPages.push(actualPage);
       currentPageType = pageType;
     }
@@ -232,6 +258,20 @@ scaltex.Areal.prototype.moveEntitiesToNewPages = function () {
     entity.appendTo(appendPoint);
   }
   return this;
+}
+
+scaltex.Areal.prototype.appendSpecialEntitiesTo = function (page) {
+  var specialEntities = this.generateSpecialEntities();
+  for (var idx in specialEntities) {
+    var entity = specialEntities[idx];
+    var appendPoint = entity.requiredPageAppendPoint;
+    var appendPointId = page.appendPoints[appendPoint];
+    if (appendPointId) {
+      entity.render();
+      entity.appendTo(appendPointId);
+      page.fill(appendPoint, entity.height());
+    }
+  }
 }
 
 scaltex.Areal.prototype.destructConstructionAreas = function () {

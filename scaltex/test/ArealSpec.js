@@ -1,5 +1,5 @@
 describe("Areal", function() {
-  var areal, page, pageFactory, w, x, y, z, seq, arealElement;
+  var areal, page, pageFactory, w, x, y, z, footer, seq, arealElement, specialEntities;
 
   beforeEach(function() {  // init Classes
     page = document.createElement("script");
@@ -46,6 +46,11 @@ describe("Areal", function() {
     z.innerHTML = "<div>{{z}}</div>";
     document.body.appendChild(z);
 
+    footer = document.createElement("script");
+    footer.id = "footerType";
+    footer.innerHTML = "<div>{{text}} {{pageNr}}</div>";
+    document.body.appendChild(footer);
+
     seq = [
       {
         pageType: "pageTypeX",
@@ -67,7 +72,15 @@ describe("Areal", function() {
     arealElement.id = "Areal_0";
     document.body.appendChild(arealElement);
 
-    areal = new scaltex.Areal("Areal_0", seq, pageFactory);
+    specialEntities = [
+      {
+        templateId: "footerType",
+        json: {text: "Static Name", pageNr: "@nextPageNr"},
+        requiredPageAppendPoint: "footer"
+      }
+    ];
+
+    areal = new scaltex.Areal("Areal_0", seq, pageFactory, specialEntities);
   });
 
   afterEach(function() {
@@ -76,6 +89,7 @@ describe("Areal", function() {
     document.body.removeChild(x);
     document.body.removeChild(y);
     document.body.removeChild(z);
+    document.body.removeChild(footer);
     document.body.removeChild(arealElement);
   });
 
@@ -122,6 +136,15 @@ describe("Areal", function() {
     expect(areal.entities[3].entity.json).toEqual({id: 3, z: "Z"});
   });
 
+  it("should generate the special entities, which are individual for every page", function() {
+    var special = areal.generateSpecialEntities();
+
+    expect(special[0].type).toEqual("footerType");
+    expect(special[0].json).toEqual({id: "Special_Areal_0_1", text: "Static Name", pageNr: 1});
+    special[0].render();
+    expect(special[0].element.id).toEqual("Entity_Special_Areal_0_1");
+  });
+
   it("should mount the entities into the targeted construction area", function() {
     areal.generateEntities();
     areal.renderEntities();
@@ -138,7 +161,7 @@ describe("Areal", function() {
         "<div id=\"Entity_3\"><div>Z</div></div>");
   });
 
-  it("should create new pages for viewing and move the entities to fill the pages", function() {
+  it("should create new pages for viewing, with footer, and move the entities to fill the pages", function() {
     areal.generateEntities();
     areal.renderEntities();
     areal.mountEntitiesToConstructionArea();
@@ -150,7 +173,11 @@ describe("Areal", function() {
           "<div id=\"content_Areal_0_Page_1\" class=\"mainContent\">" +
             "<div id=\"Entity_0\"><div style=\"height: 200px\">W</div></div>" +
           "</div>" +
-          "<div id=\"footer_Areal_0_Page_1\" class=\"footer\"></div>" +
+          "<div id=\"footer_Areal_0_Page_1\" class=\"footer\">" +
+            "<div id=\"Entity_Special_Areal_0_1\">" +
+              "<div>Static Name 1</div>" +
+            "</div>" +
+          "</div>" +
         "</div>");
 
     expect(document.getElementById("Areal_0_Page_2")
@@ -159,7 +186,11 @@ describe("Areal", function() {
           "<div id=\"content_Areal_0_Page_2\" class=\"mainContent\">" +
             "<div id=\"Entity_1\"><div style=\"height: 50px\">X</div></div>" +
           "</div>" +
-          "<div id=\"footer_Areal_0_Page_2\" class=\"footer\"></div>" +
+          "<div id=\"footer_Areal_0_Page_2\" class=\"footer\">" +
+            "<div id=\"Entity_Special_Areal_0_2\">" +
+              "<div>Static Name 2</div>" +
+            "</div>" +
+          "</div>" +
         "</div>");
 
     expect(document.getElementById("Areal_0_Page_3")

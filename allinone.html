@@ -165,6 +165,14 @@ var seq = [
   }
 ];
 
+specialEntities = [
+  {
+    templateId: "pagina",
+    json: {institutName: "Fraunhofer SCAI", pageNr: "@nextPageNr"},
+    requiredPageAppendPoint: "footer"
+  }
+];
+
 var page = {
   template: "page",
   appendPoints: [
@@ -183,7 +191,7 @@ var page2 = {
 
 var pageFactory = new scaltex.PageFactory({page: page, page2: page2})
 
-var documentAreal = new scaltex.Areal("DocumentAreal", seq, pageFactory);
+var documentAreal = new scaltex.Areal("DocumentAreal", seq, pageFactory, specialEntities);
 documentAreal.generateEntities();
 documentAreal.renderEntities();
 documentAreal.mountEntitiesToConstructionArea();
