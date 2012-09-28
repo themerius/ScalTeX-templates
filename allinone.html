@@ -6,26 +6,70 @@
 <link rel="stylesheet" href="css/reset.css" />
 <link rel="stylesheet" href="css/typo.css" />
 <link rel="stylesheet" href="css/grid.css" />
+<link rel="stylesheet" href="css/titlepage.css" />
 <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
 <script src="scaltex/src/scaltex.js"></script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 <body>
 
-<div id="constructionArea"></div>
-<div id="viewArea"></div>
+<div id="TitlepageAreal"></div>
+<div id="DocumentAreal"></div>
+
+<script id="titlepage" type="text/template">
+<div class="pageA4">
+  <div id="{{{appendPoint_logo}}}"></div>
+  <div class="layoutGrid">
+    <div id="{{{appendPoint_longName}}}"></div>
+    <div id="{{{appendPoint_mainTitle}}}"></div>
+    <div id="{{{appendPoint_partner}}}"></div>
+  </div>
+  <div id="{{{appendPoint_footer}}}"></div>
+</div>
+</script>
+
+<script id="titlepage_logo" type="text/template">
+<img class="titlepage_logo" src="{{src}}" alt="{{description}}" />
+</script>
+
+<script id="titlepage_longName" type="text/template">
+<div class="row">
+  <div class="col4">
+    <p class="titlepage_longName">{{{text}}}</p>
+  </div>
+  <div class="row-end">&nbsp;</div>
+</div>
+</script>
+
+<script id="titlepage_mainTitle" type="text/template">
+<div class="row">
+  <div class="col3">
+    <p class="titlepage_main">{{{main}}}</p>
+    <p class="titlepage_sub">{{{sub}}}</p>
+  </div>
+  <div class="row-end">&nbsp;</div>
+</div>
+</script>
+
+<script id="titlepage_partner" type="text/template">
+<div class="titlepage_partner">
+  <p>In Zusammenarbeit mit</p>
+  </br>
+  <img class="titlepage_partnerlogo" src="{{src}}" alt="{{description}}" />
+</div>
+</script>
+
+
 
 <script id="page" type="text/template">
 <div class="pageA4">
-  <div class="layoutGrid">
-    {{{content}}}
-  </div>
-  {{{footer}}}
+  <div id="{{{appendPoint_content}}}" class="layoutGrid"></div>
+  <div id="{{{appendPoint_footer}}}"></div>
 </div>
 </script>
 
 <script id="pagina" type="text/template">
-<div id="obj_{{objId}}" class="layoutGridBottom pagina">
+<div class="layoutGridBottom pagina">
   <div class="row line">
     <div class="col3">
       <p>{{institutName}}</p>
@@ -38,7 +82,7 @@
 </script>
 
 <script id="text_3column" type="text/template">
-<div id="obj_{{objId}}" class="row">
+<div class="row">
   <div class="col3">
     <p>{{{text}}}</p>
     {{#newline}}
@@ -50,14 +94,14 @@
 </script>
 
 <script id="heading" type="text/template">
-<div id="obj_{{objId}}" class="row">
+<div class="row">
   <div class="col4"><{{h}}>{{number}}</br>{{heading}}</{{h}}></br></br></div>
   <div class="row-end">&nbsp;</div>
 </div>
 </script>
 
 <script id="figure_2column_left" type="text/template">
-<div id="obj_{{objId}}" class="row topSpace bottomSpace">
+<div class="row topSpace bottomSpace">
   <div class="col2">
     <img class="scaling" src="{{src}}" alt="{{description}}" />
   </div>
@@ -78,119 +122,171 @@ var section_1 = {  // TODO: define kind of object or determine!
   heading: "First Heading",
   number: 1,
   h: "h1",
-  objId: 0
+  id: 0
 };
 
 var par_1 = {
   text: "Lorem $ipsum^2$ dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
   newline: [true, true],
-  objId: 1
+  id: 1
 };
 
 var subsection_1_1 = {
   heading: "Subheading",
   number: 1.1,
   h: "h2",
-  objId: 2
+  id: 2
 };
 
 var par_2 = {
   text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-  objId: 3
+  id: 3
 };
 
 var figData = {
     src: "https://raw.github.com/themerius/ScalTeX/play/public/images/plot.png",
     number: 1,
     description: "Blindtext Bildunterschrift Marginaltext in Marginalspalte </br> Als es die ersten Hügel des Kursivgebirges",
-  objId: 4
+  id: 4
 };
 
 var par_3 = {
   text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-  objId: 5
+  id: 5
 };
 
 var section_2 = {
   heading: "Second Heading",
   number: 2,
   h: "h1",
-  objId: 6
+  id: 6
 };
 
 var subsection_2_1 = {
   heading: "Subheading",
   number: 2.1,
   h: "h2",
-  objId: 7
+  id: 7
 };
 
 var par_4 = {
   text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
   newline: true,
-  objId: 8
+  id: 8
 };
 
 var par_5 = {
   text: "Look at the inline math like $X=\\mathcal F(x):\\mathbb R\\to\\mathbb C$. Or full math: $$x(t)=\\frac1{\\sqrt{2\\pi}}\\int_{-2\\pi F}^{2\\pi F} X(\\omega)e^{\\mathrm{i}\\omega\\,t}\, d\\omega$$",
   objId: 9,
-  newline: true
+  id: true
 };
 
 
 var par_6 = {
   text: "Lorem <em>ipsum dolor</em> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-  objId: 10
+  id: 10
 };
 
 
-var json_from_generator = [
-  {type: "NewPage", context: "ContinuousPages"},
-  {type: "heading", context: section_1},
-  {type: "text", context: par_1},
-  {type: "heading", context: subsection_1_1},
-  {type: "text", context: par_2},
-  {type: "figure", context: figData},
-  {type: "text", context: par_3},
-  {type: "NewPage", context: "ContinuousPages"},
-  {type: "heading", context: section_2},
-  {type: "heading", context: subsection_2_1},
-  {type: "text", context: par_4},
-  {type: "text", context: par_5},
-  {type: "text", context: par_6}
+var titlepageseq = [
+  {
+    pageType: "titlepage",
+    entities: [
+      {templateId: "titlepage_logo", json: {id: 11, src: "scai.gif", description: "Fraunhofer SCAI Logo", appendPoint: "logo"}},
+      {templateId: "titlepage_longName", json: {id: 12, text: "Fraunhofer-Institut für Algorithmen und Wissenschaftliches Rechnen SCAI", appendPoint: "longName"}},
+      {templateId: "titlepage_mainTitle", json: {id: 13, main: "Titel", sub: "Untertitel darf auch</br>zwei Zeilen", appendPoint: "mainTitle"}},
+      {templateId: "titlepage_partner", json: {id: 14, src: "htwg.jpg", appendPoint: "partner"}}
+    ]
+  }
 ];
 
-var footer = new scaltex.Object("pagina");
-footer.predefinedJson = {
-  institutName: "Fraunhofer SCAI",
-  pageNr: new scaltex.PageCount("arabic"),
-  objId: -1
+var seq = [
+  {
+    pageType: "page",
+    entities: [
+      {templateId: "heading", json: section_1},
+      {templateId: "text_3column", json: par_1},
+      {templateId: "heading", json: subsection_1_1},
+      {templateId: "text_3column", json: par_2},
+      {templateId: "figure_2column_left", json: figData},
+      {templateId: "text_3column", json: par_3}
+    ]
+  },
+  {
+    pageType: "page2",
+    entities: [
+      {templateId: "heading", json: section_2},
+      {templateId: "heading", json: subsection_2_1},
+      {templateId: "text_3column", json: par_4},
+      {templateId: "text_3column", json: par_5},
+      {templateId: "text_3column", json: par_6}
+    ]
+  }
+];
+
+specialEntities = [
+  {
+    templateId: "pagina",
+    json: {institutName: "Fraunhofer SCAI", pageNr: "@nextPageNr"},
+    requiredPageAppendPoint: "footer"
+  }
+];
+
+var page = {
+  template: "page",
+  appendPoints: [
+    {type: "content", templateVariable: "appendPoint_content", maxHeight: 912},
+    {type: "footer", templateVariable: "appendPoint_footer", maxHeight: 48}
+  ]
+}
+
+var page2 = {
+  template: "page",
+  appendPoints: [
+    {type: "content", templateVariable: "appendPoint_content", maxHeight: 912},
+    {type: "footer", templateVariable: "appendPoint_footer", maxHeight: 48}
+  ]
+}
+
+var titlepage = {
+  template: "titlepage",
+  appendPoints: [
+    {type: "logo", templateVariable: "appendPoint_logo", maxHeight: 912},
+    {type: "longName", templateVariable: "appendPoint_longName", maxHeight: 912},
+    {type: "mainTitle", templateVariable: "appendPoint_mainTitle", maxHeight: 912},
+    {type: "partner", templateVariable: "appendPoint_partner", maxHeight: 912},
+  ]
+}
+
+var pageFactory = new scaltex.PageFactory({
+  page: page,
+  page2: page2, 
+  titlepage: titlepage
+});
+
+var titlepageAreal = new scaltex.Areal("TitlepageAreal", titlepageseq, pageFactory);
+titlepageAreal.generateEntities();
+titlepageAreal.renderEntities();
+titlepageAreal.mountEntitiesToConstructionArea();
+
+var documentAreal = new scaltex.Areal("DocumentAreal", seq, pageFactory, specialEntities);
+documentAreal.generateEntities();
+documentAreal.renderEntities();
+documentAreal.mountEntitiesToConstructionArea();
+
+window.onload = function () {
+  titlepageAreal.moveEntitiesToNewPages();
+  titlepageAreal.destructConstructionAreas();
+
+  documentAreal.moveEntitiesToNewPages();
+  documentAreal.destructConstructionAreas();
 };
 
-var page = new scaltex.Object("page");
-page.predefinedJson = {
-  content: new scaltex.PageContent(),
-  footer: footer,
-  objId: -1
-};
 
-var config = new scaltex.Configuration(contentHeight=241.3);
-config.templateObjects.text = new scaltex.Object("text_3column");
-config.templateObjects.heading = new scaltex.Object("heading");
-config.templateObjects.figure = new scaltex.Object("figure_2column_left");
-config.pageObjects.ContinuousPages = new scaltex.ContinuousPages(
-    page, config, ["pageA4", "layoutGrid"]);
-
+// Mathjax Config
 MathJax.Hub.Config({
   tex2jax: {inlineMath: [ ['$','$'], ["\\(","\\)"] ]}
 });
-
-var builder = new scaltex.DocumentBuilder(json_from_generator, config, "constructionArea", "viewArea");
-builder.render();
-
-window.onload = function () {
-  builder.splitIntoPages();
-};
 </script>
 
 </body>
