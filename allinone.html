@@ -240,14 +240,6 @@ var page = {
   ]
 }
 
-var page2 = {
-  template: "page",
-  appendPoints: [
-    {type: "content", templateVariable: "appendPoint_content", maxHeight: 912},
-    {type: "footer", templateVariable: "appendPoint_footer", maxHeight: 48}
-  ]
-}
-
 var titlepage = {
   template: "titlepage",
   appendPoints: [
@@ -260,7 +252,7 @@ var titlepage = {
 
 var pageFactory = new scaltex.PageFactory({
   page: page,
-  page2: page2, 
+  page2: page, 
   titlepage: titlepage
 });
 
@@ -290,3 +282,4 @@ MathJax.Hub.Config({
 </script>
 
 </body>
+</html>
