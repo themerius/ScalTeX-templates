@@ -157,6 +157,32 @@ Within the JSON-sequence you define on which page type which entities with which
 
 The sequence is a list of dictionaries. The dictionary has a `pageType`-key and a `entities`-key. The `entities`-key is a list of dictionaries, too, containing a `templateId` wich points on an existent entity template element id, and a `json`-key with information the entity should filled with.
 
+#### Run
+
+Now are all preparations met. Just let the areal generate entities and pages:
+
+	// bring entity template and it's assigned content together:
+	documentAreal.generateEntities();
+
+	// render the entities to real DOM-elements:
+	documentAreal.renderEntities();
+
+	// the browser hooks the entity elements into a temporary area,
+	// maybe resources like pictures must be processed by the browser (may take a while),
+	// if done the real height of every entity can be measured:
+	documentAreal.mountEntitiesToConstructionArea();
+
+	window.onload = function () {
+	  // if resourceloading is finished, new pages are generated
+	  // and the enities can be moved to their destination pages:
+	  documentAreal.moveEntitiesToNewPages();
+
+	  // get rid of the temporary area:
+	  documentAreal.destructConstructionAreas();
+	};
+
+This step must be done for every areal.
+
 ### Common Entity Types and Conventions
 
 The templating is made very flexible, but usual documents share common entity types, like headings, text, figures and so on, therefore a uniform naming is very useful.
