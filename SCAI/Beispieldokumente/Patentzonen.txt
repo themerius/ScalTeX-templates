@@ -1,0 +1,37 @@
+Zonen in Patenten:
+
+EPO Patente:
+	1. Seite mit Metadaten
+	folgende Seiten
+		Seitenkopf mit Patentnummer
+		Zeilennummern in eigener Spalte
+		Überschiften
+		Seitennummern
+		Claims / Ansprüche
+			Nummer [0001]
+			Fliesstext (einspaltig)
+			chemische Zeichung
+			Tabelle
+			Diagramme
+			Bildunterschriften
+	letzte Seite
+		search report
+		Literaturreferenzen
+
+USPTO Patente:
+	1. Seite mit Metadaten
+	folgende Seiten
+		Seitenkopf mit Patentnummer
+		Überschriften
+		Seitenummern
+		Fliesstext (2-spaltig)
+		Zeilennummern in eigener Spalte
+		chemische Zeichnung (auch spalten übergreifend)
+		Tabellen 
+		Bildunterschriften
+	letzte Seite
+		formale Zustimmung
+		
+Im Prinzip gibt es die gleichen Zonen nur mit anderen Formatierungen
+
+	
