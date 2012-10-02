@@ -1,4 +1,10 @@
-# Documentation
+# scaltex.js
+
+Is a little framework to realize semi-automatic document-generation with JSON-input. It gives you an abstraction over pages -- pages are not native provided by HTML/CSS.
+
+Short: With this framework you can build your own document template and feed it with JSON-contents.
+
+## Structure
 
 There are three basis types:
 
@@ -18,8 +24,6 @@ There are three basis types:
  
    This are the elementary elements, which are hooked into the pages, like
    headings, texts, figures and so on.
-
-## scaltex.js
 
 The framework enables you to bring areal, page and entities together and renders semi-automatic a document out of some JSON-data. It especially deliveres you an abstraction over pages, which is no usual HTML/CSS task.
 
