@@ -190,7 +190,7 @@ var par_6 = {
 
 var titlepageseq = [
   {
-    pageType: "titlepage",
+    pageType: "A4_titlepage",
     entities: [
       {templateId: "titlepage_logo", json: {id: 11, src: "scai.gif", description: "Fraunhofer SCAI Logo", appendPoint: "logo"}},
       {templateId: "titlepage_longName", json: {id: 12, text: "Fraunhofer-Institut für Algorithmen und Wissenschaftliches Rechnen SCAI", appendPoint: "longName"}},
@@ -202,7 +202,7 @@ var titlepageseq = [
 
 var seq = [
   {
-    pageType: "page",
+    pageType: "A4",
     entities: [
       {templateId: "heading", json: section_1},
       {templateId: "text_1110", json: par_1},
@@ -213,7 +213,7 @@ var seq = [
     ]
   },
   {
-    pageType: "page2",
+    pageType: "A4",
     entities: [
       {templateId: "heading", json: section_2},
       {templateId: "heading", json: subsection_2_1},
@@ -251,9 +251,8 @@ var titlepage = {
 }
 
 var pageFactory = new scaltex.PageFactory({
-  page: page,
-  page2: page, 
-  titlepage: titlepage
+  A4: page,
+  A4_titlepage: titlepage
 });
 
 var titlepageAreal = new scaltex.Areal("TitlepageAreal", titlepageseq, pageFactory);

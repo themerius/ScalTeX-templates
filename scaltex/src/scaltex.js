@@ -181,10 +181,12 @@ scaltex.Areal.prototype.generateEntities = function () {
   for (var idx in this.seq) {
     var pageType = this.seq[idx].pageType;
     var entities = this.seq[idx].entities;
+    var pagebreak = true;
     for (var jdx in entities) {
       var entityContext = entities[jdx];
       var entity = new scaltex.Entity(entityContext.templateId, entityContext.json);
-      this.entities.push({pageType: pageType, entity: entity});
+      this.entities.push({pageType: pageType, entity: entity, pagebreak: pagebreak});
+      pagebreak = false;
     }
   }
   return this;
@@ -237,13 +239,14 @@ scaltex.Areal.prototype.moveEntitiesToNewPages = function () {
   for (var idx in this.entities) {
     var entity = this.entities[idx].entity;
     var pageType = this.entities[idx].pageType;
+    var pagebreak = this.entities[idx].pagebreak;
     var appendPoint = this.entities[idx].entity.requiredPageAppendPoint;
     var actualPage = this.viewedPages.slice(-1)[0];
 
     var noPage = !currentPageType;
     var falsePage = currentPageType != pageType;
     var notEnoughSpace = (actualPage == undefined) ? true : actualPage.availableSpace[appendPoint] < entity.height();
-    var newPageCondition = noPage || falsePage || notEnoughSpace;
+    var newPageCondition = noPage || pagebreak || falsePage || notEnoughSpace;
 
     if (newPageCondition) {
       var config = {pageId: this.name + "_" + "Page_" + this.nextPageNr()};

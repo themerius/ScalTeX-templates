@@ -122,18 +122,22 @@ describe("Areal", function() {
     expect(areal.entities[0].pageType).toEqual("pageTypeX");
     expect(areal.entities[0].entity.type).toEqual("entityTypeW");
     expect(areal.entities[0].entity.json).toEqual({id: 0, w: "W"});
+    expect(areal.entities[0].pagebreak).toEqual(true);
 
     expect(areal.entities[1].pageType).toEqual("pageTypeX");
     expect(areal.entities[1].entity.type).toEqual("entityTypeX");
     expect(areal.entities[1].entity.json).toEqual({id: 1, x: "X"});
+    expect(areal.entities[1].pagebreak).toEqual(false);
 
     expect(areal.entities[2].pageType).toEqual("pageTypeY");
     expect(areal.entities[2].entity.type).toEqual("entityTypeY");
     expect(areal.entities[2].entity.json).toEqual({id: 2, y: "Y"});
+    expect(areal.entities[2].pagebreak).toEqual(true);
 
     expect(areal.entities[3].pageType).toEqual("pageTypeY");
     expect(areal.entities[3].entity.type).toEqual("entityTypeZ");
     expect(areal.entities[3].entity.json).toEqual({id: 3, z: "Z"});
+    expect(areal.entities[3].pagebreak).toEqual(false);
   });
 
   it("should generate the special entities, which are individual for every page", function() {
