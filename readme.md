@@ -226,13 +226,23 @@ As example we assume a 4-column-layout-grid, which should suitable for the most 
 
 This rule can be applied to all `templateId`s except `heading`.
 
+### Common Page Types and Conventions
+
+Of course it is possible to name the pages anything, but there are common used pages and it's recommandable to name them in a uniform fashion.
+
+| page name   | included in example | append points                      | notes                 |
+|:----------- |:-------------------:|:---------------------------------- |:--------------------- |
+| A4          | yes                 | content, header, footer            | header not impl yet   |
+| A4_landscape| not yet             | content, header, footer            |                       |
+| A4_titlepage| yes                 | logo, longName, mainTitle, partner |                       |
+
 ## Basic Documents
 
 Details about the different documents and their additional entity types.
 
 ### Academic Article (Fraunhofer Style)
 
-4 Column Basis Container for Fraunhofer Bericht (academic Article).
+4 Column Basis Container for Fraunhofer Bericht (academic article).
 
 Columns are based on http://978.gs.
 
