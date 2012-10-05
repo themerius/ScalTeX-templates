@@ -1,6 +1,6 @@
 # scaltex.js
 
-Is a little framework to realize semi-automatic document-generation with JSON-input. It gives you an abstraction over pages -- pages are not native provided by HTML/CSS.
+Is a little framework to realize semi-automatic HTML/CSS document-generation with JSON-input. It gives you an abstraction over pages -- pages are not native provided by HTML/CSS.
 
 Short: With this framework you can build your own document template and feed it with JSON-contents.
 
@@ -10,22 +10,26 @@ There are three basis types:
 
  * Areal (or Zone)
  
-   An areal within a document, for example most academic documents have areals
-   like titlepage, foreword, table of contents, main document, appendix,
-   literatur, index. 
+   An areal within a document containing some content, for example most academic documents have areals
+   like title and other meta information, foreword, table of contents, main document text, appendix,
+   literature references, index. 
  
  * Page
  
    Every areal is filled with a least one page, and there can be several
-   page types within a document, for example normal A4 pages
+   page types (layouts) within a document, for example normal A4 pages
    or landscape pages for big tables or a special titlepage.
- 
+
+
+> remark: filled? - better: is placed, is distributed, is assigned
+
+
  * Entity
  
-   This are the elementary elements, which are hooked into the pages, like
-   headings, texts, figures and so on.
+   This are the basic document elements, which are hooked into the pages, like
+   headings, text blocks, figures and so on.
 
-The framework enables you to bring areal, page and entities together and renders semi-automatic a document out of some JSON-data. It especially deliveres you an abstraction over pages, which is no usual HTML/CSS task.
+The framework enables you to bring areal, page and entities together and renders semi-automatic a document out of some JSON-data. It especially delivers you an abstraction over pages, which is no usual HTML/CSS task.
 
 `mustache.js` (template-engine) is the only dependency. So include it before `scaltex.js`:
 
@@ -90,6 +94,8 @@ Out of this we can configure a page and especially it's append points:
 	}
 
 The entities know their append point `type`, default is *content*. Every append point has a maximal available space (`maxHeight`) and this space is consumed by the entities hooked into the page. The `templateVariable` is needed internal to give an individual append point id to every page.
+
+> the unit of height is pixel?
 
 Give your pages with the page name to the `PageFactory`. This factory produces a new unique instance of the requested page:
 
