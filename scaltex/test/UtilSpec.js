@@ -18,8 +18,8 @@ describe("Util", function() {
   });
 
   it("should be able to transform mm to px", function (){
-    expect(util.transformToPx("100mm")).toBeCloseTo(377.95);
-    expect(util.transformToPx("26.459mm")).toBeCloseTo(100);
+    expect(util.transformToPx("100mm")).toBeCloseTo(378);
+    expect(util.transformToPx("26.5mm")).toBeCloseTo(100);
     expect(util.transformToPx("100px")).toEqual(100);
     expect(util.transformToPx("100")).toEqual("100");
     expect(util.transformToPx(100)).toEqual(100);
