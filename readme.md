@@ -16,13 +16,9 @@ There are three basis types:
  
  * Page
  
-   Every areal is filled with a least one page, and there can be several
+   Every areal is populated with a least one page, and there can be several
    page types (layouts) within a document, for example normal A4 pages
    or landscape pages for big tables or a special titlepage.
-
-
-> remark: filled? - better: is placed, is distributed, is assigned
-
 
  * Entity
  
@@ -95,7 +91,11 @@ Out of this we can configure a page and especially it's append points:
 
 The entities know their append point `type`, default is *content*. Every append point has a maximal available space (`maxHeight`) and this space is consumed by the entities hooked into the page. The `templateVariable` is needed internal to give an individual append point id to every page.
 
-> the unit of height is pixel?
+Accepted `maxHeight`s are pixels and millimeters, for example:
+
+    {… , maxHeight: 912}
+    {… , maxHeight: "912px"}
+    {… , maxHeight: "241.3mm"}
 
 Give your pages with the page name to the `PageFactory`. This factory produces a new unique instance of the requested page:
 
