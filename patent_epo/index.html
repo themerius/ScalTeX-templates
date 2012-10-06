@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ScalTex Templating</title>
+<link rel="stylesheet" href="css/reset.css" />
+<link rel="stylesheet" href="css/typo.css" />
+<link rel="stylesheet" href="css/page.css" />
+<script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
+<script src="../scaltex/src/scaltex.js"></script>
+</head>
+<body>
+
+<div id="DocumentAreal"></div>
+
+<script id="page" type="text/template">
+<div class="pageA4">
+  <div id="{{{appendPoint_header}}}" class="header"></div>
+  <div class="lineNumbering">
+    <br />
+    <br />
+    <br />
+    <br />
+    5<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    10<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    15<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    20<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    25<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    30<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    35<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    40<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    45<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    50<br />
+    <br />
+    <br />
+    <br />
+    <br />
+    55<br />
+    <br />
+    <br />
+    <br />
+  </div>
+  <div id="{{{appendPoint_content}}}" class="layoutGrid"></div>
+  <div id="{{{appendPoint_footer}}}" class="footer"></div>
+</div>
+</script>
+
+<script id="header" type="text/template">
+<div class="header">
+  <br /><br /><br /><br />
+  <p>{{title}}</p>
+</div>
+</script>
+
+<script id="footer" type="text/template">
+<div class="footer">
+  <br />
+  <p>{{pageNr}}</p>
+</div>
+</script>
+
+<script id="text_1110" type="text/template">
+<div class="paragraph">
+  <p>
+    <span class="par_nr">
+      [{{parNr}}]
+    </span>
+    {{{text}}}
+  </p>
+</div>
+{{#newline}}
+  <br />
+{{/newline}}
+</script>
+
+<script id="heading" type="text/template">
+<{{h}}>{{heading}}</{{h}}>
+<br />
+</script>
+
+<script id="figure_1100" type="text/template">
+<div class="row topSpace bottomSpace">
+  <div class="col2">
+    <img class="scaling" src="{{src}}" alt="{{description}}" />
+  </div>
+  <div class="col1">  <!-- style="margin-top: parentHight - self.hight px" -->
+    <strong>Abbildung {{number}}: {{{description}}}</strong>
+  </div>
+  <div class="row-end">&nbsp;</div>
+</div>
+</script>
+
+<!--
+     BEGIN
+     =====
+-->
+
+<script>
+var section_1 = {
+  heading: "Description",
+  h: "h1",
+  id: 0
+};
+
+var section_1_1 = {
+  heading: "Technical Field",
+  h: "h2",
+  id: 0
+};
+
+var par_1 = {
+  parNr: "0001",
+  text: "This invention relates to a remedy for overactive bladder comprising (R)-2-(2-arninothiazol-4-yl)-4'-[2-[(2- hydroxy-2-phenylethyl) amino] ethyl] acetic acid anilide or a salt thereof as an active ingredient.",
+  newline: true,
+  id: 1
+};
+
+var subsection_1_1 = {
+  heading: "Background Art",
+  h: "h2",
+  id: 2
+};
+
+var par_2 = {
+  parNr: "0002",
+  text: "Bladder of mammals is under a dual control of autonomic nerve and detrusor relaxes via an adrenaline B receptor by stimulation of sympathetic nerve upon urination while, upon excretion of urine, it contracts via a muscarine receptor by stimulation of parasympathetic nerve. As a remedy for overactive bladder resulted when the dual control as such is unbalanced, anticholinergic agents such as propiverine hydrochloride and oxybutynin hydrochloride have been mostly used at present. However, there are intractable cases showing resistance to such compounds and there are side effects caused by anticholinergic agents such as urinary dysfunction and dry mouth and, therefore, it is the current status that satisfactory clinical results are not always achieved.",
+  id: 3
+};
+
+var figData = {
+    src: "https://raw.github.com/themerius/ScalTeX/play/public/images/plot.png",
+    number: 1,
+    description: "Blindtext Bildunterschrift Marginaltext in Marginalspalte </br> Als es die ersten Hügel des Kursivgebirges",
+  id: 4
+};
+
+var par_3 = {
+  text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  id: 5
+};
+
+var section_2 = {
+  heading: "Second Heading",
+  number: 2,
+  h: "h1",
+  id: 6
+};
+
+var subsection_2_1 = {
+  heading: "Subheading",
+  number: 2.1,
+  h: "h2",
+  id: 7
+};
+
+var par_4 = {
+  text: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  newline: true,
+  id: 8
+};
+
+var par_5 = {
+  text: "Look at the inline math like $X=\\mathcal F(x):\\mathbb R\\to\\mathbb C$. Or full math: $$x(t)=\\frac1{\\sqrt{2\\pi}}\\int_{-2\\pi F}^{2\\pi F} X(\\omega)e^{\\mathrm{i}\\omega\\,t}\, d\\omega$$",
+  objId: 9,
+  id: true
+};
+
+
+var par_6 = {
+  text: "Lorem <em>ipsum dolor</em> sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  id: 10
+};
+
+var seq = [
+  {
+    pageType: "A4",
+    entities: [
+      {templateId: "heading", json: section_1},
+      {templateId: "heading", json: section_1_1},
+      {templateId: "text_1110", json: par_1},
+      {templateId: "heading", json: subsection_1_1},
+      {templateId: "text_1110", json: par_2},
+      {templateId: "figure_1100", json: figData},
+      {templateId: "text_1110", json: par_3}
+    ]
+  },
+  {
+    pageType: "A4",
+    entities: [
+      {templateId: "heading", json: section_2},
+      {templateId: "heading", json: subsection_2_1},
+      {templateId: "text_1110", json: par_4},
+      {templateId: "text_1110", json: par_5},
+      {templateId: "text_1110", json: par_6}
+    ]
+  }
+];
+
+var specialEntities = [
+  {
+    templateId: "footer",
+    json: {pageNr: "@nextPageNr"},
+    requiredPageAppendPoint: "footer"
+  },
+  {
+    templateId: "header",
+    json: {title: "E 1 559 427 A1"},
+    requiredPageAppendPoint: "header"
+  }
+];
+
+var page = {
+  template: "page",
+  appendPoints: [
+    {type: "header", templateVariable: "appendPoint_header", maxHeight: "26.75mm"},
+    {type: "content", templateVariable: "appendPoint_content", maxHeight: "249.5mm"},
+    {type: "footer", templateVariable: "appendPoint_footer", maxHeight: "20.75mm"}
+  ]
+}
+
+var pageFactory = new scaltex.PageFactory({
+  A4: page
+});
+
+var documentAreal = new scaltex.Areal("DocumentAreal", seq, pageFactory, specialEntities);
+documentAreal.generateEntities();
+documentAreal.renderEntities();
+documentAreal.mountEntitiesToConstructionArea();
+
+window.onload = function () {
+  documentAreal.moveEntitiesToNewPages();
+  documentAreal.destructConstructionAreas();
+};
+</script>
+
+</body>
+</html>

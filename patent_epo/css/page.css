@@ -1,0 +1,40 @@
+div.pageA4 {
+	width: 210mm;
+	margin: 0 auto;
+	box-shadow:0 0 5px #888;
+	height: 297mm;
+	position:  relative;
+	background-color: #ffffff;
+}
+
+div.header {
+	width: 210mm;
+	position: absolute;
+	top: 0;
+	height: 26.75mm;
+}
+
+div.lineNumbering {
+	width: 10mm;
+	margin-left: 10mm;
+	position: absolute;
+	margin-top: 26.75mm;
+	height: 249.5mm;
+	font-style: italic;
+	text-align: right;
+}
+
+div.layoutGrid {
+	width: 163mm;
+	height: 249.5mm;
+	margin-top: 26.75mm;
+	position: absolute;
+	margin-left: 26mm;
+}
+
+div.footer {
+	width: 210mm;
+	position: absolute;
+	bottom: 0;
+	height: 20.75mm;
+}

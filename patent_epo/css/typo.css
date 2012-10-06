@@ -1,0 +1,101 @@
+@import url(http://fonts.googleapis.com/css?family=Gentium+Basic:400,700,400italic,700italic);
+
+body {
+	color: #000;
+	text-align: justify;
+	font: 9pt/12pt "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif;
+	text-rendering: optimizeLegibility;
+	background-color: #eaeaea;
+}
+
+p {
+	line-height: 12pt;
+}
+
+img.scaling {
+	max-width: 100%;
+}
+
+.bottomSpace {
+	padding-top: 1em;
+}
+
+.topSpace {
+	padding-bottom: 1em;
+}
+
+pre,
+code {
+  font-family: 'DejaVu Sans Mono', Menlo, Consolas, monospace;
+}
+
+hr {
+  border: 0 #ccc solid;
+  border-top-width: 1px;
+  clear: both;
+  height: 0;
+}
+
+/* `Headings
+----------------------------------------------------------------------------------------------------*/
+
+h1 {
+	font-weight: bold;
+}
+
+h2 {
+	font-weight: normal;
+	font-style: normal;
+}
+
+.par_nr {
+	font-weight: bold;
+	margin-right: 1em;
+}
+
+/* `Spacing
+----------------------------------------------------------------------------------------------------*/
+
+ol {
+  list-style: decimal;
+}
+
+ul {
+  list-style: disc;
+}
+
+li {
+  margin-left: 30px;
+}
+
+/*
+p,
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset,
+figure {
+  margin-bottom: 20px;
+}
+ */
+
+.header {
+	font-weight: bold;
+	text-align: center;
+	font-size: 11pt;
+}
+
+.footer {
+	font-weight: bold;
+	text-align: center;
+}
