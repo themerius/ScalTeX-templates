@@ -105,6 +105,7 @@ scaltex.Page.prototype.extractMaxHeights = function (config) {
   for (var idx in config.appendPoints) {
     var type = config.appendPoints[idx].type;
     var maxHeight = config.appendPoints[idx].maxHeight;
+    maxHeight = (new scaltex.Util()).transformToPx(maxHeight);
     json[type] = maxHeight;
   }
   return json;

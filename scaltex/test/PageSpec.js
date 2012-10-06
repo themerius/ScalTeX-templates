@@ -18,7 +18,7 @@ describe("Page", function() {
       pageId: "Areal_0_Page_0",
       template: "pageTemplate",
       appendPoints: [
-        {type: "content", templateVariable: "appendPoint_0", maxHeight: 200},
+        {type: "content", templateVariable: "appendPoint_0", maxHeight: "52.917mm"},
         {type: "footer", templateVariable: "appendPoint_1", maxHeight: 50}
       ]
     };
