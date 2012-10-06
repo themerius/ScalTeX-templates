@@ -32,6 +32,19 @@ scaltex.Util.prototype.copyJSON = function (json) {
   return JSON.parse(JSON.stringify(json));
 }
 
+scaltex.Util.prototype.transformToPx = function (unit) {
+  if (/\d+mm/.test(unit)) {
+    var mm = unit.split("mm")[0];
+    return mm * this.pixelPerMillimeter();
+  }
+  else if (/\d+px/.test(unit)) {
+    return Number(unit.split("px")[0]);
+  }
+  else {
+    return unit;
+  }
+}
+
 /**
  * class: Entity
  */
