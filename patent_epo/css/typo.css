@@ -16,6 +16,10 @@ img.scaling {
 	max-width: 100%;
 }
 
+img.lines-8 {
+	height: 96pt;
+}
+
 .bottomSpace {
 	padding-top: 1em;
 }
