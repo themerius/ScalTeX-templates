@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>ScalTex Templating</title>
+        <link rel="stylesheet" href="css/reset.css" />
+        <link rel="stylesheet" href="css/typo.css" />
+        <link rel="stylesheet" href="css/page.css" />
+        <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
+        <script src="../scaltex/src/scaltex.js"></script>
+    </head>
+    <body>
+        
+        <div id="DocumentAreal"></div>
+        
+        <script id="page" type="text/template">
+            <div class="pageA4">
+            <div id="{{{appendPoint_header}}}" class="header"></div>
+            <div class="lineNumbering">
+            <br />
+            <br />
+            <br />
+            <br />
+            5<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            10<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            15<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            20<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            25<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            30<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            35<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            40<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            45<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            50<br />
+            <br />
+            <br />
+            <br />
+            <br />
+            55<br />
+            <br />
+            <br />
+            <br />
+            </div>
+            <div id="{{{appendPoint_content}}}" class="layoutGrid"></div>
+            <div id="{{{appendPoint_footer}}}" class="footer"></div>
+            </div>
+            </script>
+        
+        <script id="header" type="text/template">
+            <div class="header">
+            <br /><br /><br /><br />
+            <p>{{title}}</p>
+            </div>
+            </script>
+        
+        <script id="footer" type="text/template">
+            <div class="footer">
+            <br />
+            <p>{{pageNr}}</p>
+            </div>
+            </script>
+        
+        <script id="text_1110" type="text/template">
+            <div class="paragraph">
+            <p>
+            <span class="par_nr">
+            [{{parNr}}]
+            </span>
+            {{{text}}}
+            </p>
+            </div>
+            {{#newline}}
+            <br />
+            {{/newline}}
+            </script>
+
+        <script id="text_0110" type="text/template">
+            <div class="paragraph">
+            <p>
+            {{{text}}}
+            </p>
+            </div>
+            {{#newline}}
+            <br />
+            {{/newline}}
+            </script>
+        
+
+        <script id="heading" type="text/template">
+            <{{h}}>{{heading}}</{{h}}>
+            <br />
+            </script>
+        
+        <script id="figure_1100" type="text/template">
+            <div class="row topSpace bottomSpace">
+            <div class="col2">
+            <img class="scaling" src="{{src}}" alt="{{description}}" />
+            </div>
+            <div class="col1">  <!-- style="margin-top: parentHight - self.hight px" -->
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{{description}}}
+            </div>
+            </div>
+            </script>
+        
+        <!--
+         BEGIN entities
+         =====
+         -->
+        
+        <script>
+            var section_1 = {
+                heading: "Description",
+                h: "h1",
+                id: 0
+            };
+            
+            var section_1_1 = {
+                heading: "Technical Field",
+                h: "h2",
+                id: 1
+            };
+            
+            var par_1 = {
+                parNr: "0001",
+                text: "This invention relates to a remedy for overactive bladder comprising (R)-2-(2-aminothiazol-4-yl)-4'-[2-[(2-hy-droxy-2—pheny|ethy|) amino] ethyl] acetic acid anilide or a salt thereof as an active ingredient.",
+                newline: true,
+                id: 2
+            };
+            
+            var section_1_2 = {
+                heading: "Background Art",
+                h: "h2",
+                id: 3
+            };
+            
+            var par_2 = {
+                parNr: "0002",
+                text: "Bladder of mammals is under a dual control of autonomic nerve and detrusor relaxes via an adrenaline [3 receptor by stimulation of sympathetic nerve upon urination while, upon excretion of urine, it contracts via a muscarine receptor by stimulation of parasympathetic nerve. As a remedy for overactive bladder resulted when the dual control as such is unbalanced, anticholinergic agents such as propiverine hydrochloride and oxybutynin hydrochloride have been mostly used at present. However, there are intractable cases showing resistance to such compounds and there are side effects caused by anticholinergic agents such as urinaw dysfunction and dry mouth and, therefore, it is the current status that satisfactory clinical results are not always achieved.",
+                id: 4
+            };
+            
+            var par_3 = {
+                parNr: "0003",
+                text: "Further, as a result of increase in population of aged people in recent years, numbers of patients suffering from overactive bladder are increasing year by year and, in view of QOL (quality of life) of patients, there has been a brisk demand for the development of new drugs.",
+                id: 5
+            };
+            
+            var par_4 = {
+                parNr: "0004",
+                text: "Further, as a result of increase in population of aged people in recent years, numbers of patients suffering from overactive bladder are increasing year by year and, in view of QOL (quality of life) of patients, there has been a brisk demand for the development of new drugs.",
+                id: 6
+            };
+            
+            var figData_1 = {
+                src: "pics/mol1.png",
+                number: 1,
+                id: 7
+            };
+            
+            var par_5 = {
+                parNr: "0005",
+                text: "Further, as a result of increase in population of aged people in recent years, numbers of patients suffering from overactive bladder are increasing year by year and, in view of QOL (quality of life) of patients, there has been a brisk demand for the development of new drugs.",
+                id: 8
+            };
+            
+            var figData_2 = {
+                src: "pics/mol2.png",
+                number: 2,
+                id: 9
+            };
+            
+            var par_6 = {
+                parNr: "0006",
+                text: "Further, as a result of increase in population of aged people in recent years, numbers of patients suffering from overactive bladder are increasing year by year and, in view of QOL (quality of life) of patients, there has been a brisk demand for the development of new drugs.",
+                newline: true,
+                id: 10
+            };
+            
+            var figData_3 = {
+                src: "pics/mol3.png",
+                number: 3,
+                description: "(In the formula, R1 is hydroxyl group, a lower alkyl group, an aralkoxy group, amino group, etc.; R2 is hydroxyl group or a lower alkyl group; R3 is hydrogen atom or halogen atom; R4 and R5 each is hydrogen atom, halogen atom or a lower alkyl group; and A is a lower alkylene group.)",
+                id: 11
+            };
+            
+            var par_7 = {
+                parNr: "0007",
+                text: "In a pamphlet of International Laid-Open WO 99/52856, compounds represented by the following formula are mentioned as having a stimulating action to a B3-adrenaline receptor and as an agent for prevention or treatment of diseases caused by obesity, hyperglycemia and acceleration of movement of intestinal tract and diseases caused by urinary frequency or urinary incontinence, melancholia, biliary calculus or acceleration of bile duct movement (referto Patent Document 4).",
+                id: 12
+            };
+            
+            var figData_4 = {
+                src: "pics/mol4.png",
+                number: 4,
+                description: "(In the formula, Fl‘ is hydrogen atom, a lower alkyl group or an aralkyl group; R2 is hydrogen atom, a lower alkyl group or halogen atom; and A is oxygen atom or imino group.)",
+                id: 13
+            };
+            
+            var par_8 = {
+                parNr: "0008",
+                text: "(In the formula, R1 is hydroxyl group, etc.; one of R2 and R3 is hydrogen atom, halogen atom, etc. and another is hydrogen atom; and R4 is halogen atom, etc.)",
+                id: 14
+            };
+            
+            var figData_5 = {
+                src: "pics/mol5.png",
+                number: 5,
+                description: "(In the formula, R1 is hydroxyl group, etc.; one of R2 and R3 is hydrogen atom, halogen atom, etc. and another is hydrogen atom; and R4 is halogen atom, etc.)",
+                id: 15
+            };
+            
+            var par_9 = {
+                text: "Patent Document 1: Pamphlet of International Laid-Open WO 99/20607 <BR> Patent Document 2: Pamphlet of International Laid-Open WO 98/07445 <BR> Patent Document 3: Pamphlet of International Laid-Open WO 99/31045 <BR> Patent Document 4: Pamphlet of International Laid-Open W0 99/52856 <BR> Patent Document 5: Pamphlet of International Laid-Open WO 00/02846 <BR> Non-Patent Document 1: Drugs of the Future, 1993, volume 18, no. 6, page 542 <BR> Non-Patent Document 2: The American Society for Pharmacology and Experimental Therapeutics, 1993, volume 44, page 1100",
+                id: 16
+            };
+            
+            var seq = [
+                       {
+                       pageType: "A4",
+                       entities: [
+                                  {templateId: "heading", json: section_1},
+                                  {templateId: "heading", json: section_1_1},
+                                  {templateId: "text_1110", json: par_1},
+                                  {templateId: "heading", json: section_1_2},
+                                  {templateId: "text_1110", json: par_2},
+                                  {templateId: "text_1110", json: par_3},
+                                  {templateId: "text_1110", json: par_4},
+                                  {templateId: "figure_1100", json: figData_1},
+                                  {templateId: "text_1110", json: par_5},
+                                  {templateId: "figure_1100", json: figData_2},
+                                  {templateId: "text_1110", json: par_6}               
+                                  ]
+                       },
+                       {
+                       pageType: "A4",
+                       entities: [
+                                  {templateId: "figure_1100", json: figData_3},
+                                  {templateId: "text_1110", json: par_7},
+                                  {templateId: "figure_1100", json: figData_4},
+                                  {templateId: "text_1110", json: par_8},
+                                  {templateId: "figure_1100", json: figData_5},
+                                  {templateId: "text_0110", json: par_9}
+                                  ]
+                       }
+                       ];
+            
+            var specialEntities = [
+                                   {
+                                   templateId: "footer",
+                                   json: {pageNr: "@nextPageNr"},
+                                   requiredPageAppendPoint: "footer"
+                                   },
+                                   {
+                                   templateId: "header",
+                                   json: {title: "E 1 559 427 A1"},
+                                   requiredPageAppendPoint: "header"
+                                   }
+                                   ];
+            
+            var page = {
+                template: "page",
+                appendPoints: [
+                               {type: "header", templateVariable: "appendPoint_header", maxHeight: "26.75mm"},
+                               {type: "content", templateVariable: "appendPoint_content", maxHeight: "249.5mm"},
+                               {type: "footer", templateVariable: "appendPoint_footer", maxHeight: "20.75mm"}
+                               ]
+            }
+            
+            var pageFactory = new scaltex.PageFactory({
+                                                      A4: page
+                                                      });
+            
+            var documentAreal = new scaltex.Areal("DocumentAreal", seq, pageFactory, specialEntities);
+            documentAreal.generateEntities();
+            documentAreal.renderEntities();
+            documentAreal.mountEntitiesToConstructionArea();
+            
+            window.onload = function () {
+                documentAreal.moveEntitiesToNewPages();
+                documentAreal.destructConstructionAreas();
+            };
+            </script>
+        
+    </body>
+</html>

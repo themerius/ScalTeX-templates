@@ -1,0 +1,37 @@
+EP 1 559 427 A1
+
+mol3.png
+
+(In the formula, R1 is hydroxyl group, a lower alkyl group, an aralkoxy group, amino group, etc.; R2 is hydroxyl
+group or a lower alkyl group; R3 is hydrogen atom or halogen atom; R4 and R5 each is hydrogen atom, halogen atom
+or a lower alkyl group; and A is a lower alkylene group.)
+[0007] In a pamphlet of International Laid-Open WO 99/52856, compounds represented by the following formula are
+mentioned as having a stimulating action to a B3-adrenaline receptor and as an agent for prevention or treatment of
+diseases caused by obesity, hyperglycemia and acceleration of movement of intestinal tract and diseases caused by
+urinary frequency or urinary incontinence, melancholia, biliary calculus or acceleration of bile duct movement (referto
+Patent Document 4).
+
+mol4.png
+
+(In the formula, Fl‘ is hydrogen atom, a lower alkyl group or an aralkyl group; R2
+is hydrogen atom, a lower alkyl group or halogen atom; and A is oxygen atom or imino group.)
+[0008] In a pamphlet of International Laid-Open WO 00/02846, compounds represented
+by the following formula are mentioned as having a stimulating action to a [33-adrenaline receptor and as an agent
+for prevention or treatment of diseases caused by obesity, hyperglycemia and acceleration of movement of intestinal
+tract and diseases caused by urinary frequency or urinary incontinence, melancholia, biliary calculus or acceleration
+of bile duct movement (referto Patent Document 5).
+
+mol5.png
+
+(In the formula, R1 is hydroxyl group, etc.; one of R2 and R3 is hydrogen atom, halogen
+atom, etc. and another is hydrogen atom; and R4 is halogen atom, etc.)
+
+Patent Document 1: Pamphlet of International Laid-Open WO 99/20607
+Patent Document 2: Pamphlet of International Laid-Open WO 98/07445
+Patent Document 3: Pamphlet of International Laid-Open WO 99/31045
+Patent Document 4: Pamphlet of International Laid-Open W0 99/52856
+Patent Document 5: Pamphlet of International Laid-Open WO 00/02846
+Non-Patent Document 1: Drugs of the Future, 1993, volume 18, no. 6, page 542
+Non-Patent Document 2: The American Society for Pharmacology and Experimental Therapeutics, 1993, volume
+44, page 1100
+
