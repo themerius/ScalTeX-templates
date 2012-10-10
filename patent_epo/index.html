@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="css/reset.css" />
 <link rel="stylesheet" href="css/typo.css" />
 <link rel="stylesheet" href="css/page.css" />
+<link rel="stylesheet" href="css/img.css" />
 <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
 <script src="../scaltex/src/scaltex.js"></script>
 </head>
@@ -115,7 +116,7 @@
 </script>
 
 <script id="figure_1100" type="text/template">
-<img class="scaling lines-8" src="{{src}}" alt="{{description}}" />
+<img class="scaling lines-{{lines}}" src="{{src}}" alt="{{description}}" />
 </script>
 
 <!--
@@ -156,9 +157,9 @@ var par_2 = {
 };
 
 var figData = {
-    src: "pic1.png",
-    number: 1,
-    description: "Blindtext Bildunterschrift Marginaltext in Marginalspalte </br> Als es die ersten Hügel des Kursivgebirges",
+  src: "pics/mol1.png",
+  lines: 9,
+  description: "Blindtext Bildunterschrift Marginaltext in Marginalspalte </br> Als es die ersten Hügel des Kursivgebirges",
   id: 4
 };
 
@@ -185,7 +186,6 @@ var subsection_2_1 = {
 var par_4 = {
   parNr: "0004",
   text: "The present inventors reported in Example 41 of a pamphlet of International Laid-Open WO 99/20607 that (R)-2-(2-aminothiazoI-4-yl)-4'-[2-[(2-hydroxy-2-phenylethyl)amino]-ethyl]acetic acid anilide dihydrochloride has both promotion action for insulin secretion and enhancing action for insulin sensitivity and further has anti-obese and antihyperlipemic actions whereby it is a useful compound for the treatment of diabetes mellitus but there is neither suggestion nor disclosure forthe therapeutic use for overactive bladder (refer to Patent Document 1).",
-  newline: true,
   id: 8
 };
 

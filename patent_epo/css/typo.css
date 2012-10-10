@@ -8,16 +8,16 @@ body {
 	background-color: #eaeaea;
 }
 
+div.lineNumbering {
+	font-size: 7pt;
+}
+
 p {
 	line-height: 12pt;
 }
 
 img.scaling {
 	max-width: 100%;
-}
-
-img.lines-8 {
-	height: 96pt;
 }
 
 .bottomSpace {
