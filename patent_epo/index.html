@@ -96,7 +96,7 @@
 </div>
 </script>
 
-<script id="text_1110" type="text/template">
+<script id="text" type="text/template">
 <div class="paragraph">
   <p>
     <span class="par_nr">
@@ -110,13 +110,27 @@
 {{/newline}}
 </script>
 
+<script id="text_indented" type="text/template">
+<div class="paragraph">
+  <p class="indented">
+  {{{text}}}
+  </p>
+</div>
+{{#newline}}
+  <br />
+{{/newline}}
+</script>
+
 <script id="heading" type="text/template">
 <{{h}}>{{heading}}</{{h}}>
 <br />
 </script>
 
-<script id="figure_1100" type="text/template">
+<script id="figure" type="text/template">
 <img class="scaling lines-{{lines}}" src="{{src}}" alt="{{description}}" />
+{{#description}}
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{{description}}}</div>
+{{/description}}
 </script>
 
 <!--
@@ -134,73 +148,100 @@ var section_1 = {
 var section_1_1 = {
   heading: "Technical Field",
   h: "h2",
-  id: 0
+  id: 1
 };
 
 var par_1 = {
   parNr: "0001",
   text: "This invention relates to a remedy for overactive bladder comprising (R)-2-(2-arninothiazol-4-yl)-4'-[2-[(2- hydroxy-2-phenylethyl) amino] ethyl] acetic acid anilide or a salt thereof as an active ingredient.",
   newline: true,
-  id: 1
+  id: 2
 };
 
 var subsection_1_1 = {
   heading: "Background Art",
   h: "h2",
-  id: 2
+  id: 3
 };
 
 var par_2 = {
   parNr: "0002",
   text: "Bladder of mammals is under a dual control of autonomic nerve and detrusor relaxes via an adrenaline β receptor by stimulation of sympathetic nerve upon urination while, upon excretion of urine, it contracts via a muscarine receptor by stimulation of parasympathetic nerve. As a remedy for overactive bladder resulted when the dual control as such is unbalanced, anticholinergic agents such as propiverine hydrochloride and oxybutynin hydrochloride have been mostly used at present. However, there are intractable cases showing resistance to such compounds and there are side effects caused by anticholinergic agents such as urinary dysfunction and dry mouth and, therefore, it is the current status that satisfactory clinical results are not always achieved.",
-  id: 3
+  id: 4
 };
 
-var figData = {
+var figData_1 = {
   src: "pics/mol1.png",
   lines: 9,
-  description: "Blindtext Bildunterschrift Marginaltext in Marginalspalte </br> Als es die ersten Hügel des Kursivgebirges",
-  id: 4
+  id: 5
 };
 
 var par_3 = {
   parNr: "0003",
   text: "Further, as a result of increase in population of aged people in recent years, numbers of patients suffering from overactive bladder are increasing year by year and, in view of QOL (quality of life) of patients, there has been a brisk demand for the development of new drugs.",
-  id: 5
-};
-
-var section_2 = {
-  heading: "Second Heading",
-  number: 2,
-  h: "h1",
   id: 6
-};
-
-var subsection_2_1 = {
-  heading: "Subheading",
-  number: 2.1,
-  h: "h2",
-  id: 7
 };
 
 var par_4 = {
   parNr: "0004",
   text: "The present inventors reported in Example 41 of a pamphlet of International Laid-Open WO 99/20607 that (R)-2-(2-aminothiazoI-4-yl)-4'-[2-[(2-hydroxy-2-phenylethyl)amino]-ethyl]acetic acid anilide dihydrochloride has both promotion action for insulin secretion and enhancing action for insulin sensitivity and further has anti-obese and antihyperlipemic actions whereby it is a useful compound for the treatment of diabetes mellitus but there is neither suggestion nor disclosure forthe therapeutic use for overactive bladder (refer to Patent Document 1).",
-  id: 8
+  id: 7
 };
 
 var par_5 = {
   parNr: "0005",
-  text: "In the meanwhile, in a pamphlet of international Laid-Open W0 98/07445, as an agent for prevention and treatment of urinary frequency and urinary incontinence containing a drug having stimulating action to a [33-adrenaline receptor as an active ingredient, there is mentioned that CG P-1 2,1 77A represented by the following chemical structural formula has a relaxation action for bladder (referto Patent Document 2). CGP-12,1 77A has been Known as a selective drug having stimulating action to a B3-adrenaline receptor (referto Non-Patent Documents 1 and 2).",
-  objId: 9,
-  id: true
+  text: "In the meanwhile, in a pamphlet of International Laid-Open WO 98/07445, as an agent for prevention and treatment of urinary frequency and urinary incontinence containing a drug having stimulating action to a β₃-adrenaline receptor as an active ingredient, there is mentioned that CGP-12,177A represented by the following chemical structural formula has a relaxation action for bladder (referto Patent Document 2). CGP-12,177A has been Known as a selective drug having stimulating action to a β₃-adrenaline receptor (refer to Non-Patent Documents 1 and 2).",
+  id: 8
 };
 
+var figData_2 = {
+  src: "pics/mol2.png",
+  lines: 11,
+  id: 9
+};
 
 var par_6 = {
   parNr: "0006",
   text: "In a pamphlet of International Laid-Open WO 99/31 045, compounds represented by thefollowing formula are mentioned as having a stimulating action to a [33-adrenaline receptor and as an agent for prevention or treatment of diseases caused by obesity, hyperglycemia and acceleration of movement of intestinal tract and diseases caused by urinary frequency or urinary incontinence, melancholia, biliary calculus or acceleration of bile duct movement (referto Patent Document 3).",
   id: 10
+};
+
+var figData_3 = {
+  src: "pics/mol3.png",
+  lines: 10,
+  description: "(In the formula, R1 is hydroxyl group, a lower alkyl group, an aralkoxy group, amino group, etc.; R2 is hydroxyl group or a lower alkyl group; R3 is hydrogen atom or halogen atom; R4 and R5 each is hydrogen atom, halogen atom or a lower alkyl group; and A is a lower alkylene group.)",
+  id: 11
+};
+
+var par_7 = {
+  parNr: "0007",
+  text: "In a pamphlet of International Laid-Open WO 99/52856, compounds represented by the following formula are mentioned as having a stimulating action to a B3-adrenaline receptor and as an agent for prevention or treatment of diseases caused by obesity, hyperglycemia and acceleration of movement of intestinal tract and diseases caused by urinary frequency or urinary incontinence, melancholia, biliary calculus or acceleration of bile duct movement (refer to Patent Document 4).",
+  id: 11
+};
+
+var figData_4 = {
+  src: "pics/mol4.png",
+  lines: 10,
+  description: "(In the formula, R1 is hydrogen atom, a lower alkyl group or an aralkyl group; R2 is hydrogen atom, a lower alkyl group or halogen atom; and A is oxygen atom or imino group.)",
+  id: 12
+};
+
+var par_8 = {
+  parNr: "0008",
+  text: "In a pamphlet of International Laid-Open WO OO/02846, compounds represented by thefollowing formula are mentioned as having a stimulating action to a [33-adrenaline receptor and as an agent for prevention or treatment of diseases caused by obesity, hyperglycemia and acceleration of movement of intestinal tract and diseases caused by urinary frequency or urinary incontinence, melancholia, biliary calculus or acceleration of bile duct movement (refer to Patent Document 5)",
+  id: 13
+};
+
+var figData_5 = {
+  src: "pics/mol5.png",
+  lines: 10,
+  description: "(In the formula, R1 is hydroxyl group, etc.; one of R2 and R3 is hydrogen atom, halogen atom, etc. and another is hydrogen atom; and R4 is halogen atom, etc.)",
+  id: 14
+};
+
+var par_9 = {
+  text: "<br />Patent Document 1: Pamphlet of International Laid-Open WO 99/20607 <BR> Patent Document 2: Pamphlet of International Laid-Open WO 98/07445 <BR> Patent Document 3: Pamphlet of International Laid-Open WO 99/31045 <BR> Patent Document 4: Pamphlet of International Laid-Open W0 99/52856 <BR> Patent Document 5: Pamphlet of International Laid-Open WO 00/02846 <BR> Non-Patent Document 1: Drugs of the Future, 1993, volume 18, no. 6, page 542 <BR> Non-Patent Document 2: The American Society for Pharmacology and Experimental Therapeutics, 1993, volume 44, page 1100",
+  id: 15
 };
 
 var seq = [
@@ -209,21 +250,21 @@ var seq = [
     entities: [
       {templateId: "heading", json: section_1},
       {templateId: "heading", json: section_1_1},
-      {templateId: "text_1110", json: par_1},
+      {templateId: "text", json: par_1},
       {templateId: "heading", json: subsection_1_1},
-      {templateId: "text_1110", json: par_2},
-      {templateId: "text_1110", json: par_3},
-      {templateId: "text_1110", json: par_4},
-      {templateId: "figure_1100", json: figData},
-      {templateId: "text_1110", json: par_5},
-      {templateId: "text_1110", json: par_6}
-    ]
-  },
-  {
-    pageType: "A4",
-    entities: [
-      {templateId: "heading", json: section_2},
-      {templateId: "heading", json: subsection_2_1}
+      {templateId: "text", json: par_2},
+      {templateId: "text", json: par_3},
+      {templateId: "text", json: par_4},
+      {templateId: "figure", json: figData_1},
+      {templateId: "text", json: par_5},
+      {templateId: "figure", json: figData_2},
+      {templateId: "text", json: par_6},
+      {templateId: "figure", json: figData_3},
+      {templateId: "text", json: par_7},
+      {templateId: "figure", json: figData_4},
+      {templateId: "text", json: par_8},
+      {templateId: "figure", json: figData_5},
+      {templateId: "text_indented", json: par_9}
     ]
   }
 ];
