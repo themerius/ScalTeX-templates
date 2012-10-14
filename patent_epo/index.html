@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/img.css" />
 <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
 <script src="../scaltex/src/scaltex.js"></script>
+<script src="http://hyphenator.googlecode.com/svn/trunk/Hyphenator.js"></script>
 </head>
 <body>
 
@@ -98,7 +99,7 @@
 
 <script id="text" type="text/template">
 <div class="paragraph">
-  <p>
+  <p class="hyphenate">
     <span class="par_nr">
       [{{parNr}}]
     </span>
@@ -299,6 +300,13 @@ var documentAreal = new scaltex.Areal("DocumentAreal", seq, pageFactory, special
 documentAreal.generateEntities();
 documentAreal.renderEntities();
 documentAreal.mountEntitiesToConstructionArea();
+
+Hyphenator.config({
+  useCSS3hyphenation: true,
+  displaytogglebox : true,
+  minwordlength : 4
+});
+Hyphenator.run();
 
 window.onload = function () {
   documentAreal.moveEntitiesToNewPages();
