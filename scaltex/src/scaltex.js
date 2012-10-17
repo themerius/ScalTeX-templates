@@ -98,6 +98,7 @@ scaltex.Page.prototype.extractAppendPoints = function (config) {
     var type = config.appendPoints[idx].type;
     json[type] = type + '_' + config.pageId;
   }
+  delete json["undefined"]; // bugfix for prototype.js
   return json;
 }
 
@@ -198,10 +199,12 @@ scaltex.Areal.prototype.generateEntities = function () {
     var entities = this.seq[idx].entities;
     var pagebreak = true;
     for (var jdx in entities) {
-      var entityContext = entities[jdx];
-      var entity = new scaltex.Entity(entityContext.templateId, entityContext.json);
-      this.entities.push({pageType: pageType, entity: entity, pagebreak: pagebreak});
-      pagebreak = false;
+      if (typeof entities[jdx] != "function") {  // bugfix for prototype.js
+        var entityContext = entities[jdx];
+        var entity = new scaltex.Entity(entityContext.templateId, entityContext.json);
+        this.entities.push({pageType: pageType, entity: entity, pagebreak: pagebreak});
+        pagebreak = false;
+      }
     }
   }
   return this;
@@ -210,38 +213,43 @@ scaltex.Areal.prototype.generateEntities = function () {
 scaltex.Areal.prototype.generateSpecialEntities = function () {
   var ret = [];
   for (var idx in this.specialEntities) {
-    var templateId = this.specialEntities[idx].templateId;
-    var json = this.util.copyJSON(this.specialEntities[idx].json);
-    var requiredPageAppendPoint = this.specialEntities[idx].requiredPageAppendPoint;
+    if (typeof this.specialEntities[idx] != "function") {  // bugfix for prototype.js
+      var templateId = this.specialEntities[idx].templateId;
+      var json = this.util.copyJSON(this.specialEntities[idx].json);
+      var requiredPageAppendPoint = this.specialEntities[idx].requiredPageAppendPoint;
 
-    var entity = new scaltex.Entity(templateId, json);
+      var entity = new scaltex.Entity(templateId, json);
 
-    for (var key in entity.json)
-      if (entity.json[key] == "@nextPageNr") {
-        var tmp = {};
-        tmp[key] = this.nextPageNr();
-        tmp.id = "Special_" + this.name + "_" + this.nextPageNr();
-        entity.modifyJSON(tmp);
-      }
+      for (var key in entity.json)
+        if (entity.json[key] == "@nextPageNr") {
+          var tmp = {};
+          tmp[key] = this.nextPageNr();
+          tmp.id = "Special_" + this.name + "_" + this.nextPageNr();
+          entity.modifyJSON(tmp);
+        }
 
-    entity.requiredPageAppendPoint = requiredPageAppendPoint;
-    ret.push(entity);
+      entity.requiredPageAppendPoint = requiredPageAppendPoint;
+      ret.push(entity);
+    }
   }
   return ret;
 }
 
 scaltex.Areal.prototype.renderEntities = function () {
   for (var idx in this.entities)
-    this.entities[idx].entity.render();
+    if (typeof this.entities[idx] != "function")  // bugfix for prototype.js
+      this.entities[idx].entity.render();
 };
 
 scaltex.Areal.prototype.mountEntitiesToConstructionArea = function () {
   for (var idx in this.entities) {
-    var pageType = this.entities[idx].pageType;
-    var entity = this.entities[idx].entity;
-    var appendPoint = this.entities[idx].entity.requiredPageAppendPoint;
-    appendPoint = this.constructionAreas[pageType].appendPoints[appendPoint];
-    entity.appendTo(appendPoint);
+    if (typeof this.entities[idx] != "function") {  // bugfix for prototype.js
+      var pageType = this.entities[idx].pageType;
+      var entity = this.entities[idx].entity;
+      var appendPoint = this.entities[idx].entity.requiredPageAppendPoint;
+      appendPoint = this.constructionAreas[pageType].appendPoints[appendPoint];
+      entity.appendTo(appendPoint);
+    }
   }
 }
 
@@ -252,29 +260,31 @@ scaltex.Areal.prototype.nextPageNr = function () {
 scaltex.Areal.prototype.moveEntitiesToNewPages = function () {
   var currentPageType = null;
   for (var idx in this.entities) {
-    var entity = this.entities[idx].entity;
-    var pageType = this.entities[idx].pageType;
-    var pagebreak = this.entities[idx].pagebreak;
-    var appendPoint = this.entities[idx].entity.requiredPageAppendPoint;
-    var actualPage = this.viewedPages.slice(-1)[0];
+    if (typeof this.entities[idx] != "function") {  // bugfix for prototype.js
+      var entity = this.entities[idx].entity;
+      var pageType = this.entities[idx].pageType;
+      var pagebreak = this.entities[idx].pagebreak;
+      var appendPoint = this.entities[idx].entity.requiredPageAppendPoint;
+      var actualPage = this.viewedPages.slice(-1)[0];
 
-    var noPage = !currentPageType;
-    var falsePage = currentPageType != pageType;
-    var notEnoughSpace = (actualPage == undefined) ? true : actualPage.availableSpace[appendPoint] < entity.height();
-    var newPageCondition = noPage || pagebreak || falsePage || notEnoughSpace;
+      var noPage = !currentPageType;
+      var falsePage = currentPageType != pageType;
+      var notEnoughSpace = (actualPage == undefined) ? true : actualPage.availableSpace[appendPoint] < entity.height();
+      var newPageCondition = noPage || pagebreak || falsePage || notEnoughSpace;
 
-    if (newPageCondition) {
-      var config = {pageId: this.name + "_" + "Page_" + this.nextPageNr()};
-      actualPage = this.pageFactory.newPage(pageType, config);
-      actualPage.appendTo(this.name);
-      this.appendSpecialEntitiesTo(actualPage);
-      this.viewedPages.push(actualPage);
-      currentPageType = pageType;
+      if (newPageCondition) {
+        var config = {pageId: this.name + "_" + "Page_" + this.nextPageNr()};
+        actualPage = this.pageFactory.newPage(pageType, config);
+        actualPage.appendTo(this.name);
+        this.appendSpecialEntitiesTo(actualPage);
+        this.viewedPages.push(actualPage);
+        currentPageType = pageType;
+      }
+
+      actualPage.fill(appendPoint, entity.height());
+      appendPoint = actualPage.appendPoints[appendPoint];
+      entity.appendTo(appendPoint);
     }
-
-    actualPage.fill(appendPoint, entity.height());
-    appendPoint = actualPage.appendPoints[appendPoint];
-    entity.appendTo(appendPoint);
   }
   return this;
 }
