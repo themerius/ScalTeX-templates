@@ -10,8 +10,39 @@
 <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
 <script src="../scaltex/src/scaltex.js"></script>
 <script src="http://hyphenator.googlecode.com/svn/trunk/Hyphenator.js"></script>
+<!-- Ketcher -->
+<script src="ketcher/prototype-min.js"></script>
+<script src="ketcher/ketcher.js"></script>
+<script>
+function getKetcher() {
+  var frame = null;
+  
+  if ('frames' in window && 'ketcherFrame' in window.frames)
+    frame = window.frames['ketcherFrame'];
+  else
+    return null;
+    
+  if ('window' in frame)
+    return frame.window.ketcher;
+}
+
+function render (molfileId) {
+  var molfile = document.getElementById("ketcherChemistryMolfile-" + molfileId).innerHTML;
+  var targetElement = document.getElementById("ketcherChemistryView-" + molfileId);
+  var renderOpts = {
+        'autoScale':true,
+        'debug':true,
+        'autoScaleMargin':20,
+        'ignoreMouseEvents':true
+  };
+  var ketcher = getKetcher();
+  ketcher.showMolfileOpts(targetElement, molfile, 20, renderOpts);
+}
+</script>
 </head>
 <body>
+
+<iframe id="ketcherFrame" src="ketcher/ketcher.html" width="800px" height="530px" style="display:none;"></iframe>
 
 <div id="DocumentAreal"></div>
 
@@ -134,6 +165,13 @@
 {{/description}}
 </script>
 
+<script id="ketcherChemistry" type="text/template">
+<div id="ketcherChemistryMolfile-{{molfileId}}" style="display:none;">
+  {{{molfile}}}
+</div>
+<div id="ketcherChemistryView-{{molfileId}}" style="height:100px"></div>
+</script>
+
 <!--
      BEGIN
      =====
@@ -245,6 +283,12 @@ var par_9 = {
   id: 15
 };
 
+var molfile = {
+  molfileId: 0,
+  molfile: "  Ketcher 02151213522D 1   1.00000     0.00000     0\n\n  6  6  0     0  0            999 V2000\n   -1.1750    1.7500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -0.3090    1.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -0.3090    0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -1.1750   -0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -2.0410    0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -2.0410    1.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n  1  2  1  0     0  0\n  2  3  2  0     0  0\n  3  4  1  0     0  0\n  4  5  2  0     0  0\n  5  6  1  0     0  0\n  6  1  2  0     0  0\nM  END",
+  id: 16
+};
+
 var seq = [
   {
     pageType: "A4",
@@ -265,7 +309,8 @@ var seq = [
       {templateId: "figure", json: figData_4},
       {templateId: "text", json: par_8},
       {templateId: "figure", json: figData_5},
-      {templateId: "text_indented", json: par_9}
+      {templateId: "text_indented", json: par_9},
+      {templateId: "ketcherChemistry", json: molfile}
     ]
   }
 ];
@@ -311,6 +356,7 @@ Hyphenator.run();
 window.onload = function () {
   documentAreal.moveEntitiesToNewPages();
   documentAreal.destructConstructionAreas();
+  render(0);
 };
 </script>
 
