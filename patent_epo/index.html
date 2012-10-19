@@ -30,13 +30,13 @@ function render (molfileId) {
   var molfile = document.getElementById("ketcherChemistryMolfile-" + molfileId).innerHTML;
   var targetElement = document.getElementById("ketcherChemistryView-" + molfileId);
   var renderOpts = {
-        'autoScale':true,
-        'debug':true,
-        'autoScaleMargin':20,
-        'ignoreMouseEvents':true
+    'autoScale': true,
+    'debug': true,
+    'autoScaleMargin': 2,
+    'ignoreMouseEvents': true
   };
   var ketcher = getKetcher();
-  ketcher.showMolfileOpts(targetElement, molfile, 20, renderOpts);
+  ketcher.showMolfileOpts(targetElement, molfile, 0, renderOpts);
 }
 </script>
 </head>
@@ -169,7 +169,7 @@ function render (molfileId) {
 <div id="ketcherChemistryMolfile-{{molfileId}}" style="display:none;">
   {{{molfile}}}
 </div>
-<div id="ketcherChemistryView-{{molfileId}}" style="height:100px"></div>
+<div id="ketcherChemistryView-{{molfileId}}" class="scaling lines-{{lines}}"></div>
 </script>
 
 <!--
@@ -283,10 +283,18 @@ var par_9 = {
   id: 15
 };
 
-var molfile = {
+var molfile_1 = {
   molfileId: 0,
   molfile: "  Ketcher 02151213522D 1   1.00000     0.00000     0\n\n  6  6  0     0  0            999 V2000\n   -1.1750    1.7500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -0.3090    1.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -0.3090    0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -1.1750   -0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -2.0410    0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n   -2.0410    1.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n  1  2  1  0     0  0\n  2  3  2  0     0  0\n  3  4  1  0     0  0\n  4  5  2  0     0  0\n  5  6  1  0     0  0\n  6  1  2  0     0  0\nM  END",
+  lines: 5,
   id: 16
+};
+
+var molfile_2 = {
+  molfileId: 1,
+  molfile: "  Ketcher 10191215332D 1   1.00000     0.00000     0\n\n 24 25  0     0  0            999 V2000\n    6.9122    2.0722    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    6.5454    0.9500    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    7.2344    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    6.5454   -0.9500    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    5.4284   -0.5903    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    5.4284    0.5903    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    4.4060    1.1806    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    4.4060    2.3611    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n    3.3835    0.5903    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    3.3835   -0.5903    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    2.3611   -1.1806    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n    4.4060   -1.1806    0.0000 N   0  0  0  0  0  0  0  0  0  0  0  0\n    4.4060   -2.3611    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    2.3611    1.1806    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    7.6079    1.8448    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n    7.1396    2.7680    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n    6.2164    2.2996    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n    7.9663    0.0000    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n    3.6740   -2.3611    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n    4.4060   -3.0931    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n    5.1379   -2.3611    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n    2.7271    1.8144    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n    1.7273    1.5465    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n    1.9952    0.5467    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0\n  1  2  1  0     0  0\n  2  3  1  0     0  0\n  3  4  2  0     0  0\n  4  5  1  0     0  0\n  5  6  2  0     0  0\n  2  6  1  0     0  0\n  6  7  1  0     0  0\n  7  8  2  0     0  0\n  7  9  1  0     0  0\n  9 10  1  0     0  0\n 10 11  2  0     0  0\n 10 12  1  0     0  0\n  5 12  1  0     0  0\n 12 13  1  0     0  0\n  9 14  1  0     0  0\n  1 15  1  0     0  0\n  1 16  1  0     0  0\n  1 17  1  0     0  0\n  3 18  1  0     0  0\n 13 19  1  0     0  0\n 13 20  1  0     0  0\n 13 21  1  0     0  0\n 14 22  1  0     0  0\n 14 23  1  0     0  0\n 14 24  1  0     0  0\nM  END\n",
+  lines: 15,
+  id: 17
 };
 
 var seq = [
@@ -310,7 +318,8 @@ var seq = [
       {templateId: "text", json: par_8},
       {templateId: "figure", json: figData_5},
       {templateId: "text_indented", json: par_9},
-      {templateId: "ketcherChemistry", json: molfile}
+      {templateId: "ketcherChemistry", json: molfile_1},
+      {templateId: "ketcherChemistry", json: molfile_2}
     ]
   }
 ];
@@ -357,6 +366,7 @@ window.onload = function () {
   documentAreal.moveEntitiesToNewPages();
   documentAreal.destructConstructionAreas();
   render(0);
+  render(1);
 };
 </script>
 
