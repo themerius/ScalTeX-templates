@@ -9,7 +9,7 @@
 <script>
 function getKetcher() {
   var frame = null;
-  
+
   if ('frames' in window && 'ketcherFrame' in window.frames)
     frame = window.frames['ketcherFrame'];
   else
@@ -23,10 +23,10 @@ function render (molfileId) {
   var molfile = document.getElementById("ketcherChemistryMolfile-" + molfileId).innerHTML;
   var targetElement = document.getElementById("ketcherChemistryView-" + molfileId);
   var renderOpts = {
-        'autoScale':true,
-        'debug':true,
-        'autoScaleMargin':20,
-        'ignoreMouseEvents':true
+    'autoScale':true,
+    'debug':true,
+    'autoScaleMargin':20,
+    'ignoreMouseEvents':true
   };
   var ketcher = getKetcher();
   ketcher.showMolfileOpts(targetElement, molfile, 20, renderOpts);
@@ -35,18 +35,18 @@ function render (molfileId) {
 </head>
 <body>
 
-<iframe id="ketcherFrame" src="ketcher/ketcher.html" width="800px" height="530px" style="display:none;"></iframe>
+<iframe id="ketcherFrame" name="ketcherFrame" src="ketcher/ketcher.html" width="800px" height="530px" scrolling="no" style="display: none;"></iframe>
 
 <div id="ketcherChemistryMolfile-0" style="display:none;">
-  Ketcher 02151213522D 1   1.00000     0.00000     0
+  Ketcher 10201212052D 1   1.00000     0.00000     0
 
   6  6  0     0  0            999 V2000
-   -1.1750    1.7500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
-   -0.3090    1.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
-   -0.3090    0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
-   -1.1750   -0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
-   -2.0410    0.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
-   -2.0410    1.2500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7000    1.6250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5660    1.1250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5660    0.1250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7000   -0.3750    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1660    0.1250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.1660    1.1250    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
   1  2  1  0     0  0
   2  3  2  0     0  0
   3  4  1  0     0  0
