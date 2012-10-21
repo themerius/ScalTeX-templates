@@ -26,17 +26,22 @@ function getKetcher() {
     return frame.window.ketcher;
 }
 
-function render (molfileId) {
-  var molfile = document.getElementById("ketcherChemistryMolfile-" + molfileId).innerHTML;
-  var targetElement = document.getElementById("ketcherChemistryView-" + molfileId);
-  var renderOpts = {
-    'autoScale': true,
-    'debug': true,
-    'autoScaleMargin': 2,
-    'ignoreMouseEvents': true
-  };
+function renderKetcherChemistry () {
   var ketcher = getKetcher();
-  ketcher.showMolfileOpts(targetElement, molfile, 20, renderOpts);
+  var iteratoions = document.getElementsByName("ketcherChemistry").length;
+  for (var molfileId = 0; molfileId < iteratoions; molfileId++) {
+    var molfile = document.getElementById(
+      "ketcherChemistryMolfile-" + molfileId).innerHTML;
+    var targetElement = document.getElementById(
+      "ketcherChemistryView-" + molfileId);
+    var renderOpts = {
+      'autoScale': true,
+      'debug': true,
+      'autoScaleMargin': 2,
+      'ignoreMouseEvents': true
+    };
+    ketcher.showMolfileOpts(targetElement, molfile, 20, renderOpts);
+  }
 }
 </script>
 </head>
@@ -166,7 +171,7 @@ function render (molfileId) {
 </script>
 
 <script id="ketcherChemistry" type="text/template">
-<div id="ketcherChemistryMolfile-{{molfileId}}" style="display:none;">
+<div id="ketcherChemistryMolfile-{{molfileId}}" name="ketcherChemistry" style="display:none;">
   {{{molfile}}}
 </div>
 <div id="ketcherChemistryView-{{molfileId}}" class="scaling lines-{{lines}}"></div>
@@ -373,9 +378,7 @@ Hyphenator.run();
 window.onload = function () {
   documentAreal.moveEntitiesToNewPages();
   documentAreal.destructConstructionAreas();
-  render(0);
-  render(1);
-  render(2);
+  renderKetcherChemistry();
 };
 </script>
 
