@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>IFrame Experiments</title>
+</head>
+<body>
+
+<iframe
+  style="width: 100%;"
+  sandbox="allow-scripts"
+  seamless
+  srcdoc="
+  <div id='myid'></div>
+  <p>Das ist ein Versuch ein Inline JS auszuführen
+     <script>
+      var x = document.getElementById('myid');
+      x.innerHTML = 'hiho';
+    </script> 
+  </p>">
+</iframe>
+
+<iframe
+  id="ketcher"
+  src="ketcher/demo.html"
+  seamless
+  style="width: 900px; height: 1200px">
+</iframe>
+
+<script>
+window.onload = function () {
+  var ketcherFrame = window.frames['ketcher'];
+  ketcherFrame.window.getMolfile();
+  ketcherFrame.window.render();
+  var row1 = ketcherFrame.document.getElementById("row1").innerHTML;
+
+  var elem = document.createElement("div");
+  elem.innerHTML = row1;
+  document.body.appendChild(elem);
+}
+</script
+
+</body>
+</html>
