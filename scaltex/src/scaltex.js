@@ -182,6 +182,7 @@ scaltex.Areal = function (name, seq, pageFactory, specialEntities) {
   this.viewedPages = [];
   this.specialEntities = specialEntities;
   this.util = new scaltex.Util();
+  this.pagenumberstyle = "arabic"
 }
 
 scaltex.Areal.prototype.createConstructionAreas = function () {
@@ -253,8 +254,26 @@ scaltex.Areal.prototype.mountEntitiesToConstructionArea = function () {
   }
 }
 
+// From http://blog.stevenlevithan.com/archives/javascript-roman-numeral-converter
+scaltex.Areal.prototype.romanize = function (num) {
+  if (!+num)
+    return false;
+  var digits = String(+num).split(""),
+    key = ["","c","cc","ccc","cd","d","dc","dcc","dccc","cm",
+           "","x","xx","xxx","xl","l","lx","lxx","lxxx","xc",
+           "","i","ii","iii","iv","v","vi","vii","viii","ix"],
+    roman = "",
+    i = 3;
+  while (i--)
+    roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+  return Array(+digits.join("") + 1).join("M") + roman;
+}
+
 scaltex.Areal.prototype.nextPageNr = function () {
-  return this.viewedPages.length + 1;
+  if (this.pagenumberstyle == "arabic")
+    return this.viewedPages.length + 1;
+  if (this.pagenumberstyle == "roman")
+    return this.romanize(this.viewedPages.length + 1);
 }
 
 scaltex.Areal.prototype.moveEntitiesToNewPages = function () {

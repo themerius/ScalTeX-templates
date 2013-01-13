@@ -220,6 +220,19 @@ describe("Areal", function() {
     expect(areal.nextPageNr()).toEqual(4);
   });
 
+  it("should be able to switch page numbering style between arabic and roman", function() {
+    areal.pagenumberstyle = "roman"
+    areal.generateEntities();
+    areal.renderEntities();
+    areal.mountEntitiesToConstructionArea();
+
+    expect(areal.nextPageNr()).toEqual("i");
+
+    areal.moveEntitiesToNewPages();
+
+    expect(areal.nextPageNr()).toEqual("iv");
+  });
+
   it("should be able to destruct the construction areas", function() {
     areal.destructConstructionAreas();
     expect(document.getElementById("Areal_0_pageTypeX_constructionArea"))
